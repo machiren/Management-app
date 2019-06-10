@@ -1,0 +1,18 @@
+html body{
+  position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width: 100%;                /* 横幅100%　*/
+    height: 140px;              /* 縦幅140px */
+}
+
+.image{
+  text-align:center;
+  
+
+}
+
+.list{
+  padding: 5px 20px;
+
+}

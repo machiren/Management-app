@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     //アソシエーションの定義
-    public function managements(){
-        return $this->hasMany(Management::class);
-    }
+    // public function managements(){
+    //     return $this->hasMany(Management::class);
+    // }
 }

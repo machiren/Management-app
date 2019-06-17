@@ -1,18 +1,37 @@
-html body{
-  position: fixed;            /* ヘッダーの固定 */
-    top: 0px;                   /* 位置(上0px) */
-    left: 0px;                  /* 位置(右0px) */
-    width: 100%;                /* 横幅100%　*/
-    height: 140px;              /* 縦幅140px */
-}
 
 .image{
   text-align:center;
+  position: relative;
+  width:100%;
+
+}
+
+.image span{
+  position: absolute;
+  color: black;
+  top: 350px;
+  left:500px;
+  font-size:30px;
+  font-weight: bold;
   
+}
+
+
+.management > .table{
+  /*隣接するセルのボーダーを重ねて表示します。*/
+  border-collapse: collapse;
+  border: 1px solid #666;
+  text-align: center;
+}
+ 
+.management td, th {
+  border: 1px solid #666;
+  padding: 0.3em 0.5em;
 
 }
 
-.list{
-  padding: 5px 20px;
 
-}
+
+
+
+

@@ -3,22 +3,10 @@
   text-align:center;
   position: relative;
   width:100%;
-
 }
-
-.image span{
-  position: absolute;
-  color: black;
-  top: 350px;
-  left:500px;
-  font-size:30px;
-  font-weight: bold;
-  
-}
-
 
 .management > .table{
-  /*隣接するセルのボーダーを重ねて表示します。*/
+  /*隣接するセルのボーダーを重ねて表示する。*/
   border-collapse: collapse;
   border: 1px solid #666;
   text-align: center;

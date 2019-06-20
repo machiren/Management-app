@@ -29,7 +29,7 @@ class MemberController extends Controller
 
     public function list(){
 
-      //storeされたデータのテーブルの情報を取ってきて勤務表にforeachで表示する
+      
       $month = Month::all();
       $day = Calendar::all();
       $management = Management::all();
@@ -39,9 +39,12 @@ class MemberController extends Controller
 
     public function store(Request $request){
       
-      $post = Month::create([$request->month]);
-      $post1 = $post->save();
+      $month = Month::create([
 
-      return $post1->redirect("/");
+            'month' => $request->input('add')]);
+
+      // $month->create([$request->input->add->month]);
+
+      return redirect('/');
     }
 }

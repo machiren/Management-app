@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Management extends Model
 {
     protected $fillable = [
-        'date',
-        'day',
-        'weekday',
-        'name',
-        'employee_number',
+
         'opening_time',
         'ending_time',
         'break_time',
@@ -24,7 +20,10 @@ class Management extends Model
         'holiday_work',
         'makeup_holiday',
         'project',
-        'memo'
+        'memo',
+        'user_id',
+        'created_at',
+        'updated_at'
     ];
 
     //アソシエーションの定義

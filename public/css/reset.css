@@ -5,14 +5,14 @@
   width:100%;
 }
 
-.management > .table{
+#management > .table{
   /*隣接するセルのボーダーを重ねて表示する。*/
   border-collapse: collapse;
   border: 1px solid #666;
   text-align: center;
 }
  
-.management td, th {
+#management td, th {
   border: 1px solid #666;
   padding: 0.3em 0.5em;
 

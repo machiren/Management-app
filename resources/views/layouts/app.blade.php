@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -63,7 +65,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a class="dropdown-item" href="/sample">見本</a>
+                                    <a class="dropdown-item" href="/list">過去の勤務表</a>
                                     <a class="dropdown-item" href="/create">入力する</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

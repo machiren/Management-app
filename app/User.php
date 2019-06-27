@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password','employee_number'
     ];
 
     /**
@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //アソシエーションの定義
-    // public function managements(){
-    //     return $this->hasMany(Management::class);
-    // }
+    public function managements(){
+
+      return $this->hasMany(Management::class);
+    }
 }

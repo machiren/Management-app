@@ -11,9 +11,12 @@ class Management extends Model
         'opening_time',
         'ending_time',
         'break_time',
-        'totle_time',
+        'total_time',
         'over_time',
-        'paid_leave',
+        'night_time',
+        'holiday_time',
+        'holiday_night',
+        'holiday',
         'adsence',
         'late',
         'leave_early',
@@ -22,12 +25,17 @@ class Management extends Model
         'project',
         'memo',
         'user_id',
+        'month_id',
+        'calendar_id',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'auth_name',
+        'auth_number',
+        'year'
     ];
 
-    //アソシエーションの定義
-    public function user(){
-      return $this->belongsTo(User::class);
+    public function calendars(){
+
+      return $this->belongsTo(Calendars::class);
     }
 }

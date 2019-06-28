@@ -75,7 +75,9 @@ class MemberController extends Controller
         return redirect('/');
       }
 
-    public function update(Request $Request){
+    public function update(Request $request){
+
+      $list = Management::where('id');
 
       foreach($request->input(
 
@@ -85,7 +87,7 @@ class MemberController extends Controller
         'holiday','adsence','late','leave_early',
         'holiday_work','makeup_holiday','calendar_id') as $key => $value){
 
-        Management::update([
+        $list->update([
 
         'opening_time' => $request->input('opening_time')[$key],
         'ending_time' => $request->input('ending_time')[$key],

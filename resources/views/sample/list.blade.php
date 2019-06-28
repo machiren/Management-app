@@ -13,11 +13,6 @@ $(function()){
 
 </script>
 
-  <select id="month">
-    @foreach($month as $months)
-      <option value="">{{$months->id}}</option> 
-    @endforeach
-  </select>
 
   <div class='name'>{{Auth::user()->name}}</div>
   <div class='employee_number'>社員ナンバー {{Auth::user()->employee_number}}</div>
@@ -25,6 +20,12 @@ $(function()){
 <form action="/create/update" method="POST" name="update">
 
 <table id="management">
+
+  <select id="month">
+    @foreach($month as $months)
+      <option value="">{{$months->id}}</option> 
+    @endforeach
+  </select>
 
   <tr>
     <th class='none'></th>
@@ -51,8 +52,11 @@ $(function()){
       <th>振休</th>
     </tr>
 
+
     @foreach($day as $days)
     @foreach($management as $managements)
+
+    @csrf
       <tr>
         <td>{{$days->day}}</td>
         <td><input type="time" name="opening_time[{{$days->day}}]" value="{{$managements->opening_time}}"></td>
@@ -66,34 +70,36 @@ $(function()){
 
           <td>
             <input type="hidden" name="holiday[{{$days->day}}]" value="0">
-            <input type="checkbox" name="holiday[{{$days->day}}]" value="{{isset($managements->holiday)}}">
+            <input type="checkbox" name="holiday[{{$days->day}}]" value="{{($managements->holiday)}}">
           </td>
           <td>
             <input type="hidden" name="adsence[{{$days->day}}]" value="0">
-            <input type="checkbox" name="adsence[{{$days->day}}]" value="{{isset($managements->adsence)}}">
+            <input type="checkbox" name="adsence[{{$days->day}}]" value="{{($managements->adsence)}}">
           </td>
           <td>
             <input type="hidden" name="late[{{$days->day}}]" value="0">
-            <input type="checkbox" name="late[{{$days->day}}]" value="{{isset($managements->late)}}">
+            <input type="checkbox" name="late[{{$days->day}}]" value="{{($managements->late)}}">
           </td>
           <td>
             <input type="hidden" name="leave_early[{{$days->day}}]" value="0">
-            <input type="checkbox" name="leave_early[{{$days->day}}]" value="{{isset($managements->leave_early)}}">
+            <input type="checkbox" name="leave_early[{{$days->day}}]" value="{{($managements->leave_early)}}">
           </td>
           <td>
             <input type="hidden" name="holiday_work[{{$days->day}}]" value="0">
-            <input type="checkbox" name="holiday_work[{{$days->day}}]" value="{{isset($managements->holiday_work)}}">
+            <input type="checkbox" name="holiday_work[{{$days->day}}]" value="{{($managements->holiday_work)}}">
           </td>
           <td>
             <input type="hidden" name="makeup_holiday[{{$days->day}}]" value="0">
-            <input type="checkbox" name="makeup_holiday[{{$days->day}}]" value="{{isset($managements->makeup_holiday)}}">
+            <input type="checkbox" name="makeup_holiday[{{$days->day}}]" value="{{($managements->makeup_holiday)}}">
           </td>
         </tr>
-        @endforeach
-        @endforeach
+    @endforeach
+    @endforeach
 
-    <input type="submit" name="update" value="更新">
-  </table>
+</table>
+
+<input type="submit" name="update" value="更新">
+
 </form>
 
 

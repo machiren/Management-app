@@ -15,7 +15,7 @@ class MemberController extends Controller
     {
       $member = Auth::user();
 
-      return view('sample.index')->with('member',$member);
+      return view('sample.index',['member',$member]);
     }
 
 
@@ -25,7 +25,7 @@ class MemberController extends Controller
       $day = Calendar::all();
       $management = Management::all();
 
-      return view('sample.create')->with(['month'=>$month,'day'=>$day,'management'=>$management]);
+      return view('sample.create',['month'=>$month,'day'=>$day,'management'=>$management]);
     }
 
 
@@ -36,7 +36,7 @@ class MemberController extends Controller
       $day = Calendar::all();
       $management = Management::all();
 
-      return view('sample.list')->with(['month'=>$month,'day'=>$day,'management'=>$management]);
+      return view('sample.list',['month'=>$month,'day'=>$day,'management'=>$management]);
     }
 
 
@@ -78,7 +78,7 @@ class MemberController extends Controller
     public function update(Request $request){
 
         $list = Management::where('month_id',$request->month_id)
-                ->whereBetween('calendar_id',[1,31])->get();
+                ->whereBetween('calendar_id',[1,31])->get();dd($list);
 
       foreach($request->input(
 
@@ -88,7 +88,7 @@ class MemberController extends Controller
         'holiday','adsence','late','leave_early',
         'holiday_work','makeup_holiday') as $key => $value){
 
-      foreach($list as $lists){dd($lists);
+      foreach($list as $lists){
 
        $lists->update([
 

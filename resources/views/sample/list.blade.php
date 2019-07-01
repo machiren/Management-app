@@ -21,12 +21,6 @@ $(function()){
 
 <table id="management">
 
-  <select id="month">
-    @foreach($month as $months)
-      <option value="">{{$months->id}}</option> 
-    @endforeach
-  </select>
-
   <tr>
     <th class='none'></th>
     <th colspan="6" style="text-align:center">平日</th>
@@ -52,53 +46,58 @@ $(function()){
       <th>振休</th>
     </tr>
 
-
-    @foreach($day as $days)
-    @foreach($management as $managements)
-
     @csrf
-      <tr>
-        <td>{{$days->day}}</td>
-        <td><input type="time" name="opening_time[{{$days->day}}]" value="{{$managements->opening_time}}"></td>
-        <td><input type="time" name="ending_time[{{$days->day}}]" value="{{$managements->ending_time}}"></td>
-        <td><input type="time" name="break_time[{{$days->day}}]" value="{{$managements->break_time}}"></td>
-        <td><input type="time" name="total_time[{{$days->day}}]" value="{{$managements->total_time}}"></td>
-        <td><input type="time" name="over_time[{{$days->day}}]" value="{{$managements->over_time}}"></td>
-        <td><input type="time" name="night_time[{{$days->day}}]" value="{{$managements->night_time}}"></td>
-        <td><input type="time" name="holiday_time[{{$days->day}}]" value="{{$managements->holiday_time}}"></td>
-        <td><input type="time" name="holiday_night[{{$days->day}}]" value="{{$managements->holiday_night}}"></td>
 
-          <td>
-            <input type="hidden" name="holiday[{{$days->day}}]" value="0">
-            <input type="checkbox" name="holiday[{{$days->day}}]" value="{{($managements->holiday)}}">
-          </td>
-          <td>
-            <input type="hidden" name="adsence[{{$days->day}}]" value="0">
-            <input type="checkbox" name="adsence[{{$days->day}}]" value="{{($managements->adsence)}}">
-          </td>
-          <td>
-            <input type="hidden" name="late[{{$days->day}}]" value="0">
-            <input type="checkbox" name="late[{{$days->day}}]" value="{{($managements->late)}}">
-          </td>
-          <td>
-            <input type="hidden" name="leave_early[{{$days->day}}]" value="0">
-            <input type="checkbox" name="leave_early[{{$days->day}}]" value="{{($managements->leave_early)}}">
-          </td>
-          <td>
-            <input type="hidden" name="holiday_work[{{$days->day}}]" value="0">
-            <input type="checkbox" name="holiday_work[{{$days->day}}]" value="{{($managements->holiday_work)}}">
-          </td>
-          <td>
-            <input type="hidden" name="makeup_holiday[{{$days->day}}]" value="0">
-            <input type="checkbox" name="makeup_holiday[{{$days->day}}]" value="{{($managements->makeup_holiday)}}">
-          </td>
-        </tr>
+    <select id="month" name="month_id">
+    @foreach($month as $months)
+      <option value="{{$months->id}}">{{$months->id}}</option> 
     @endforeach
-    @endforeach
+    </select>
 
-</table>
+      @foreach($management as $managements)
 
-<input type="submit" name="update" value="更新">
+        <tr>
+          <td>{{$managements->calendar_id}}</td>
+          <td><input type="time" step="900" name="opening_time[{{$managements->calendar_id}}]" value="{{$managements->opening_time}}"></td>
+          <td><input type="time" step="900" name="ending_time[{{$managements->calendar_id}}]" value="{{$managements->ending_time}}"></td>
+          <td><input type="time" step="900" name="break_time[{{$managements->calendar_id}}]" value="{{$managements->break_time}}"></td>
+          <td><input type="time" step="900" name="total_time[{{$managements->calendar_id}}]" value="{{$managements->total_time}}"></td>
+          <td><input type="time" step="900" name="over_time[{{$managements->calendar_id}}]" value="{{$managements->over_time}}"></td>
+          <td><input type="time" step="900" name="night_time[{{$managements->calendar_id}}]" value="{{$managements->night_time}}"></td>
+          <td><input type="time" step="900" name="holiday_time[{{$managements->calendar_id}}]" value="{{$managements->holiday_time}}"></td>
+          <td><input type="time" step="900" name="holiday_night[{{$managements->calendar_id}}]" value="{{$managements->holiday_night}}"></td>
+
+            <td>
+              <input type="hidden" name="holiday[{{$managements->calendar_id}}]" value="0">
+              <input type="checkbox" name="holiday[{{$managements->calendar_id}}]" value="{{($managements->holiday)}}">
+            </td>
+            <td>
+              <input type="hidden" name="adsence[{{$managements->calendar_id}}]" value="0">
+              <input type="checkbox" name="adsence[{{$managements->calendar_id}}]" value="{{($managements->adsence)}}">
+            </td>
+            <td>
+              <input type="hidden" name="late[{{$managements->calendar_id}}]" value="0">
+              <input type="checkbox" name="late[{{$managements->calendar_id}}]" value="{{($managements->late)}}">
+            </td>
+            <td>
+              <input type="hidden" name="leave_early[{{$managements->calendar_id}}]" value="0">
+              <input type="checkbox" name="leave_early[{{$managements->calendar_id}}]" value="{{($managements->leave_early)}}">
+            </td>
+            <td>
+              <input type="hidden" name="holiday_work[{{$managements->calendar_id}}]" value="0">
+              <input type="checkbox" name="holiday_work[{{$managements->calendar_id}}]" value="{{($managements->holiday_work)}}">
+            </td>
+            <td>
+              <input type="hidden" name="makeup_holiday[{{$managements->calendar_id}}]" value="0">
+              <input type="checkbox" name="makeup_holiday[{{$managements->calendar_id}}]" value="{{($managements->makeup_holiday)}}">
+            </td>
+          </tr>
+
+      @endforeach
+
+    </table>
+
+  <input type="submit" name="update" value="更新">
 
 </form>
 

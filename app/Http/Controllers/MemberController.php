@@ -77,7 +77,8 @@ class MemberController extends Controller
 
     public function update(Request $request){
 
-      $list = Management::where('id');
+        $list = Management::where('month_id',$request->month_id)
+                ->whereBetween('calendar_id',[1,31])->get();
 
       foreach($request->input(
 
@@ -85,9 +86,11 @@ class MemberController extends Controller
         'break_time','total_time','over_time',
         'night_time','holiday_time','holiday_night',
         'holiday','adsence','late','leave_early',
-        'holiday_work','makeup_holiday','calendar_id') as $key => $value){
+        'holiday_work','makeup_holiday') as $key => $value){
 
-        $list->update([
+      foreach($list as $lists){dd($lists);
+
+       $lists->update([
 
         'opening_time' => $request->input('opening_time')[$key],
         'ending_time' => $request->input('ending_time')[$key],
@@ -102,10 +105,10 @@ class MemberController extends Controller
         'late' => $request->input('late')[$key],
         'leave_early' => $request->input('leave_early')[$key],
         'holiday_work' => $request->input('holiday_work')[$key],
-        'makeup_holiday' => $request->input('makeup_holiday')[$key],
-        'calendar_id' => $request->input('calendar_id')[$key]]);}
+        'makeup_holiday' => $request->input('makeup_holiday')[$key]]);}}
 
         return redirect('/');
       }
+
 }
 

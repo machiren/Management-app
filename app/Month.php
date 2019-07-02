@@ -10,4 +10,9 @@ class Month extends Model
 
       return $this->hasMany(Calendar::class);
     }
+
+    public function managements(){
+
+      return $this->hasMany(Management::class);
+    }
 }

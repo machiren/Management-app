@@ -8,7 +8,7 @@
 
   <ul>
     @foreach($list as $lists)
-     <li><a href="{{ url('/managements/{management}/edit')}}" name="list[]">{{$lists}}月の勤務表</a></li>
+     <li><a href="/managements/{{$lists->month->id}}/edit" name="list[]">{{$lists->month->id}}月の勤務表</a></li>
     @endforeach
   </ul>
 

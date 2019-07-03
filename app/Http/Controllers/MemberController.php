@@ -78,7 +78,8 @@ class MemberController extends Controller
 
       $month = Month::all();
       $day = Calendar::all();
-      $management = Management::all();
+      $management = Management::where('month_id',$id)
+                  ->whereBetween('calendar_id',[1,31])->get();
 
       return view('sample.edit',['month'=>$month,'day'=>$day,'management'=>$management]);
     }

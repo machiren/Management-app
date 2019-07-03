@@ -15,7 +15,7 @@
 <div class='name'>{{Auth::user()->name}}</div>
 <div class='employee_number'>社員ナンバー {{Auth::user()->employee_number}}</div>
 
-<form action="{{ url('/managements')}}" method="POST">
+<form action="/managements" method="POST">
 
   <table id="management">
 

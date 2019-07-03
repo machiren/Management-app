@@ -4,7 +4,6 @@
 
 
 <script>
-
 $(function()){
   $('#month').change(function() {
     $('option:selected').var();
@@ -17,7 +16,7 @@ $(function()){
   <div class='name'>{{Auth::user()->name}}</div>
   <div class='employee_number'>社員ナンバー {{Auth::user()->employee_number}}</div>
 
-<form action="{{ url('/managements/{management}')}}" method="POST" name="update">
+<form action="/managements/{id}" method="POST" name="update">
 
   @method('PUT')
 

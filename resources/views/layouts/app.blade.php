@@ -66,7 +66,7 @@
                                         {{ __('ログアウト') }}
                                     </a>
                                     <a class="dropdown-item" href="/managements/list">過去の勤務表</a>
-                                    <a class="dropdown-item" href="/managements/create">入力する</a>
+                                    <a class="dropdown-item" href="/managements/month_list">入力する</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

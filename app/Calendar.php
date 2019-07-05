@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Calendar extends Model
 {
-    public function managements(){
+    public function month(){
 
-      return $this->hasMany(Management::class);
+      return $this->belongsTo(Month::class);
     }
 }

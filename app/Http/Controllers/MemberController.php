@@ -19,19 +19,26 @@ class MemberController extends Controller
     }
 
 
-    public function create(){
+    public function month_list(){
 
-      $month = Month::all();
-      $day = Calendar::all();
-      $management = Management::all();
+      $month = Month::select()->get();
 
-      return view('sample.create',['month'=>$month,'day'=>$day,'management'=>$management]);
+      return view('sample.month_list',['month'=>$month]);
+    }
+
+
+    public function create($id){
+
+      $day = Calendar::with('month')->where('month_id',$id)->get();
+
+      return view('sample.create',['day'=>$day,]);
     }
 
 
     public function store(Request $request){
 
       foreach($request->input(
+        
         'opening_time','ending_time',
         'break_time','total_time','over_time',
         'night_time','holiday_time','holiday_night',
@@ -55,8 +62,6 @@ class MemberController extends Controller
         'holiday_work' => $request->input('holiday_work')[$key],
         'makeup_holiday' => $request->input('makeup_holiday')[$key],
         'calendar_id' => $request->input('calendar_id')[$key],
-        'auth_name' => $request->input('auth_name'),
-        'auth_number' => $request->input('auth_number'),
         'user_id' => $request->input('user_id'),
         'month_id' => $request->input('month_id'),
         'year' => $request->input('year')]);}
@@ -67,7 +72,7 @@ class MemberController extends Controller
 
     public function list(){
 
-      $list = Management::groupBy('user_id','month_id')->orderBy('month_id','ASC')->get('month_id');
+      $list = Management::groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
 
 
       return view('sample.list',['list'=>$list]);

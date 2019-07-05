@@ -2,17 +2,6 @@
 
 @section('content')
 
-
-<script>
-$(function()){
-  $('#month').change(function() {
-    $('option:selected').var();
-
-});}
-
-</script>
-
-
   <div class='name'>{{Auth::user()->name}}</div>
   <div class='employee_number'>社員ナンバー {{Auth::user()->employee_number}}</div>
 
@@ -20,7 +9,6 @@ $(function()){
 
   @csrf
   @method('PUT')
-  
 
 <table id="management">
 
@@ -36,9 +24,6 @@ $(function()){
       <th>始業時刻</th>
       <th>終業時刻</th>
       <th>休憩時間</th>
-      <th>実働時間</th>
-      <th>うち8h越え</th>
-      <th>うち深夜</th>
       <th>休日</th>
       <th>休日深夜</th>
       <th>休暇</th>
@@ -51,8 +36,6 @@ $(function()){
 
     @csrf
 
-   
-
       @foreach($management as $managements)
 
         <tr>
@@ -60,9 +43,6 @@ $(function()){
           <td><input type="time" step="900" name="opening_time[{{$managements->calendar_id}}]" value="{{$managements->opening_time}}"></td>
           <td><input type="time" step="900" name="ending_time[{{$managements->calendar_id}}]" value="{{$managements->ending_time}}"></td>
           <td><input type="time" step="900" name="break_time[{{$managements->calendar_id}}]" value="{{$managements->break_time}}"></td>
-          <td><input type="time" step="900" name="total_time[{{$managements->calendar_id}}]" value="{{$managements->total_time}}"></td>
-          <td><input type="time" step="900" name="over_time[{{$managements->calendar_id}}]" value="{{$managements->over_time}}"></td>
-          <td><input type="time" step="900" name="night_time[{{$managements->calendar_id}}]" value="{{$managements->night_time}}"></td>
           <td><input type="time" step="900" name="holiday_time[{{$managements->calendar_id}}]" value="{{$managements->holiday_time}}"></td>
           <td><input type="time" step="900" name="holiday_night[{{$managements->calendar_id}}]" value="{{$managements->holiday_night}}"></td>
 

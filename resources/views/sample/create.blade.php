@@ -1,19 +1,20 @@
 @extends('layouts.app')
 
-@section('content')
+  @section('content')
 
-<head>
-  <meta charset="utf-8">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
+    <head>
+      <meta charset="utf-8">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+    </head>
 
-<body>
+      <body>
+        <div>{{date('Y')}}年</div>
+        <div class='name'>{{Auth::user()->name}}</div>
+        <div class='employee_number'>社員ナンバー {{Auth::user()->employee_number}}</div>
 
-  <div>{{date('Y')}}年</div>
-
-
-<div class='name'>{{Auth::user()->name}}</div>
-<div class='employee_number'>社員ナンバー {{Auth::user()->employee_number}}</div>
+  @foreach($month as $months)
+<div class="month">{{$months->month}}月の勤務表入力する</div>
+  @endforeach
 
 <form action="/managements" method="POST">
 
@@ -41,7 +42,7 @@
         <th>振休</th>
       </tr>
 
-  @csrf
+    @csrf
     @foreach($day as $days)
         <tr>
           <td>{{$days->day}}</td>
@@ -84,12 +85,15 @@
       <input type="hidden" name="year" value="{{date('Y')}}">
       <input type="hidden" name="month_id" value="{{$days->month_id}}">
       <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-      
 
     </table>
 
-    <input type="text" name="project" autocomplete="off" placeholder="プロジェクト名">
-    <textarea name="memo" autocomplete="off" placeholder="備考欄"></textarea>
+    <input type="time" name="official_strat_time" step="900" required value="00:00">
+    <input type="time" name="official_end_time" step="900" required value="00:00">
+    <input type="time" name="official_bleak_time" step="900" required value="00:00">
+    <input type="text" name="customer" autocomplete="off" required placeholder="顧客名">
+    <input type="text" name="project" autocomplete="off" required placeholder="プロジェクト名">
+    <textarea name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
 
     <td><input type="submit" value="送信"></td>
     <td><input type="reset" value="リセット"></td>

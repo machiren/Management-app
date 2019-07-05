@@ -14,10 +14,6 @@ class Management extends Model
         'makeup_holiday','project','memo','user_id',
         'month_id','calendar_id','created_at','updated_at','year'];
 
-    public function calendars(){
-
-      return $this->belongsTo(Calendar::class);
-    }
 
     public function user(){
 

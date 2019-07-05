@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Management;
+use App\Summary;
 use App\Month;
 use App\Calendar;
 
@@ -30,13 +31,27 @@ class MemberController extends Controller
     public function create($id){
 
       $day = Calendar::with('month')->where('month_id',$id)->get();
+      $month = Month::where('month',$id)->get();
 
-      return view('sample.create',['day'=>$day,]);
+      return view('sample.create',['day'=>$day,'month'=>$month]);
     }
 
 
     public function store(Request $request){
 
+      Summary::create([
+
+        'user_id' => $request->input('user_id'),
+        'year' => $request->input('year'),
+        'month' => $request->input('month_id'),
+        'remarks' => $request->input('remarks'),
+        'customer' => $request->input('customer'),
+        'project' => $request->input('project'),
+        'official_strat_time' => $request->input('official_strat_time'),
+        'official_end_time' => $request->input('official_end_time'),
+        'official_bleak_time' => $request->input('official_bleak_time')]);
+      
+      
       foreach($request->input(
         
         'opening_time','ending_time',
@@ -73,18 +88,22 @@ class MemberController extends Controller
     public function list(){
 
       $list = Management::groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
+      $auth = Auth::user()->id;
 
-
-      return view('sample.list',['list'=>$list]);
+      return view('sample.list',['list'=>$list,'auth'=>$auth]);
     }
 
 
-    public function show($id){
+    public function show($id,$auth){
 
       $management = Management::where('month_id',$id)
                   ->whereBetween('calendar_id',[1,31])->get();
+      
+      $month = Month::where('month',$id)->get();
 
-      return view('sample.table',['management'=>$management]);
+      $summary = Summary::with('user')->where('user_id',$auth)->get();
+
+      return view('sample.table',['management'=>$management,'month'=>$month,'summary'=>$summary]);
     }
 
 

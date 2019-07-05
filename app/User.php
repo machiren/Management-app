@@ -42,7 +42,7 @@ class User extends Authenticatable
       return $this->hasMany(Management::class);
     }
 
-    public function summarys(){
+    public function summaries(){
 
       return $this->hasMany(Summary::class);
     }

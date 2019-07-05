@@ -79,19 +79,19 @@ class MemberController extends Controller
     }
 
 
-    public function edit($id){
+    public function show($id){
 
       $management = Management::where('month_id',$id)
                   ->whereBetween('calendar_id',[1,31])->get();
 
-      return view('sample.edit',['management'=>$management]);
+      return view('sample.table',['management'=>$management]);
     }
 
 
        public function update(Request $request){
         
         $management = Management::where('month_id',$request->month_id)
-                      ->select('calendar_id')->get();
+                      ->select('calendar_id');
 
         $list = Management::groupBy('calendar_id')->get('calendar_id');
   
@@ -117,6 +117,7 @@ class MemberController extends Controller
             }
           return redirect('/');
         }
-}
+}         //坂井さんから〜
           //hiddenで配列にして1~31日分のIDを渡しておく
           //1日に対して更新をかけるinputに配列を入れる！
+          //これならupdateはできると思うけどupdateするIDの指定ができてない？

@@ -41,4 +41,9 @@ class User extends Authenticatable
 
       return $this->hasMany(Management::class);
     }
+
+    public function summarys(){
+
+      return $this->hasMany(Summary::class);
+    }
 }

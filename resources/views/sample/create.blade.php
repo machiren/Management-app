@@ -88,8 +88,8 @@
 
     </table>
 
-    <input type="text" name="project">
-    <textarea name="memo">備考欄</textarea>
+    <input type="text" name="project" autocomplete="off" placeholder="プロジェクト名">
+    <textarea name="memo" autocomplete="off" placeholder="備考欄"></textarea>
 
     <td><input type="submit" value="送信"></td>
     <td><input type="reset" value="リセット"></td>

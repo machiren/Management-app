@@ -16,7 +16,7 @@ class Management extends Model
 
     public function calendars(){
 
-      return $this->belongsTo(Calendars::class);
+      return $this->belongsTo(Calendar::class);
     }
 
     public function user(){

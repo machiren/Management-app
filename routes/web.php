@@ -12,11 +12,4 @@ Route::get('/managements/month_list','MemberController@month_list');
 Route::get('/managements/{id}/create','MemberController@create');
 Route::resource('managements','MemberController',['only' => ['index','store','show','update']]);
 
-
-// Route::get('/create','MemberController@create');
-// Route::get('/edit','MemberController@edit');
-// Route::get('/list','MemberController@list');
-// Route::post('/create/store','MemberController@store');
-// Route::post('/edit/update','MemberController@update');
-
 });

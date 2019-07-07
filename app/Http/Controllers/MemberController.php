@@ -16,7 +16,7 @@ class MemberController extends Controller
     {
       $member = Auth::user();
 
-      return view('sample.index',['member',$member]);
+      return view('member.index',['member'=>$member]);
     }
 
 
@@ -24,7 +24,7 @@ class MemberController extends Controller
 
       $month = Month::select()->get();
 
-      return view('sample.month_list',['month'=>$month]);
+      return view('member.month_list',['month'=>$month]);
     }
 
 
@@ -33,7 +33,7 @@ class MemberController extends Controller
       $day = Calendar::with('month')->where('month_id',$id)->get();
       $month = Month::where('month',$id)->get();
 
-      return view('sample.create',['day'=>$day,'month'=>$month]);
+      return view('member.create',['day'=>$day,'month'=>$month]);
     }
 
 
@@ -90,7 +90,7 @@ class MemberController extends Controller
       $list = Management::groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
       $auth = Auth::user()->id;
 
-      return view('sample.list',['list'=>$list,'auth'=>$auth]);
+      return view('member.list',['list'=>$list,'auth'=>$auth]);
     }
 
 
@@ -101,41 +101,11 @@ class MemberController extends Controller
       
       $month = Month::where('month',$id)->get();
 
-      $summary = Summary::with('user')->where('user_id',$auth)->get();
+      $summary = Summary::with('user')->where('user_id',$auth)
+                 ->where('month',$id)->get();
 
-      return view('sample.table',['management'=>$management,'month'=>$month,'summary'=>$summary]);
+      return view('member.show',['management'=>$management,'month'=>$month,'summary'=>$summary]);
     }
-
-
-       public function update(Request $request){
-        
-        $management = Management::where('month_id',$request->month_id)
-                      ->select('calendar_id');
-
-        $list = Management::groupBy('calendar_id')->get('calendar_id');
-  
-        foreach($management as $managements){
-  
-         $managements->id->update([
-  
-           'opening_time' => $request->input('opening_time[$list->calendar_id]'),
-           'ending_time' => $request->input('ending_time[$list->calendar_id]'),
-          'break_time' => $request->input('break_time[$list->calendar_id]'),
-          'total_time' => $request->input('total_time[$list->calendar_id]'),
-          'over_time' => $request->input('over_time[$list->calendar_id]'),
-          'night_time' => $request->input('night_time[$list->calendar_id]'),
-          'holiday_time' => $request->input('holiday_time[$list->calendar_id]'),
-          'holiday_night' => $request->input('holiday_night[$list->calendar_id]'),
-          'holiday' => $request->input('holiday[$list->calendar_id]'),
-          'adsence' => $request->input('adsence[$list->calendar_id]'),
-          'late' => $request->input('late[$list->calendar_id]'),
-          'leave_early' => $request->input('leave_early[$list->calendar_id]'),
-          'holiday_work' => $request->input('holiday_work[$list->calendar_id]'),
-          'makeup_holiday' => $request->input('makeup_holiday[$list->calendar_id]')]);
-        
-            }
-          return redirect('/');
-        }
 }         //坂井さんから〜
           //hiddenで配列にして1~31日分のIDを渡しておく
           //1日に対して更新をかけるinputに配列を入れる！

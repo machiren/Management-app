@@ -54,34 +54,46 @@
                 @foreach($day as $days)
               <tr>
                 <td>{{$days->day}}</td>
-                <td><input type="time" step="900" name="opening_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="ending_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="break_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="holiday_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="holiday_night[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="opening_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="ending_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="break_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="holiday_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="holiday_night[{{$days->day}}]" value="00:00"></td>
                 <td>
                   <input type="hidden" name="holiday[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="holiday[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="holiday[{{$days->day}}]" value="1">
+                    </div>
                 </td>
                 <td>
                   <input type="hidden" name="adsence[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="adsence[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="adsence[{{$days->day}}]" value="1">
+                    </div>
                 </td>
                 <td>
                   <input type="hidden" name="late[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="late[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="late[{{$days->day}}]" value="1">
+                    </div>
                  </td>
                  <td>
                   <input type="hidden" name="leave_early[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="leave_early[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="leave_early[{{$days->day}}]" value="1">
+                    </div>
                  </td>
                  <td>
                    <input type="hidden" name="holiday_work[{{$days->day}}]" value="0">
-                   <input type="checkbox" name="holiday_work[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                   <input class="form-check-input position-static" type="checkbox" name="holiday_work[{{$days->day}}]" value="1">
+                    </div>
                  </td>
                  <td>
                   <input type="hidden" name="makeup_holiday[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="makeup_holiday[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="makeup_holiday[{{$days->day}}]" value="1">
+                    </div>
                  </td>
               </tr>
                 <input type="hidden" name="calendar_id[{{$days->day}}]" value="{{$days->day}}">
@@ -92,22 +104,27 @@
             </table>
               <div class="container mt-6">
                 <div class="row">
-                  <div class="col-4">
-                    <input type="time" name="official_strat_time" step="900" required value="00:00">
-                    <input type="time" name="official_end_time" step="900" required value="00:00">
-                    <input type="time" name="official_bleak_time" step="900" required value="00:00">
+                  <div class="col-6">
+                    <input type="time" class="form-control" name="official_strat_time" step="900" required value="00:00">
+                    <input type="time" class="form-control" name="official_end_time" step="900" required value="00:00">
+                    <input type="time" class="form-control" name="official_bleak_time" step="900" required value="00:00">
                   </div>
-                  <div class="col-4">
-                    <input type="text" name="customer" autocomplete="off" required placeholder="顧客名">
-                    <input type="text" name="project" autocomplete="off" required placeholder="プロジェクト名">
-                    <textarea name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
-                  </div>
-                  <div class="col-4">
-                      <input type="submit" value="確認(今は送信される)">
-                      <input type="reset" value="リセット">
+                  <div class="col-6">
+                    <input type="text" class="form-control" name="customer" autocomplete="off" required placeholder="顧客名">
+                    <input type="text" class="form-control" name="project" autocomplete="off" required placeholder="プロジェクト名">
+                    <textarea class="form-control" name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
                   </div>
                 </div>
               </div>
+                <div class="container mt-4 mb-4">
+                  <div class="row">
+                    <div class="col-8 offset-5">
+                      <button type="submit" class="btn btn-outline-success">送信</button>
+                        <button type="reset" class="btn btn-outline-warning">リセット</button>
+                      </div>
+                    </div> 
+                  </div>
+
       </form>
   </body>
 @endsection

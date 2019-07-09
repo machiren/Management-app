@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use App\User;
 use Auth;
 use App\Management;
@@ -36,6 +37,14 @@ class MemberController extends Controller
       return view('member.create',['day'=>$day,'month'=>$month]);
     }
 
+    // public function confirm(Request $request){
+
+    //   $request->session()->regenerate();
+    //   $confirm = $request->session()->all();
+
+    //   return view('member.confirm',['confirm'=>$confirm]);
+    // }
+
 
     public function store(Request $request){
 
@@ -43,11 +52,11 @@ class MemberController extends Controller
 
         'user_id' => $request->input('user_id'),
         'year' => $request->input('year'),
-        'month' => $request->input('month_id'),
+        'month_id' => $request->input('month_id'),
         'remarks' => $request->input('remarks'),
         'customer' => $request->input('customer'),
         'project' => $request->input('project'),
-        'official_strat_time' => $request->input('official_strat_time'),
+        'official_start_time' => $request->input('official_start_time'),
         'official_end_time' => $request->input('official_end_time'),
         'official_bleak_time' => $request->input('official_bleak_time')]);
       
@@ -94,7 +103,7 @@ class MemberController extends Controller
     }
 
 
-    public function show($id,$auth){
+    public function show($auth,$id){
 
       $management = Management::where('month_id',$id)
                   ->whereBetween('calendar_id',[1,31])->get();
@@ -102,7 +111,7 @@ class MemberController extends Controller
       $month = Month::where('month',$id)->get();
 
       $summary = Summary::with('user')->where('user_id',$auth)
-                 ->where('month',$id)->get();
+                 ->where('month_id',$id)->get();
 
       return view('member.show',['management'=>$management,'month'=>$month,'summary'=>$summary]);
     }

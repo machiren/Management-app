@@ -31,9 +31,9 @@
             <table id="management" class="table table-bordered">
               <tr>
                 <th class='none'></th>
-                <th colspan="5" style="text-align:center">平日</th>
+                <th colspan="3" style="text-align:center">平日</th>
                 <th colspan="2" style="text-align:center">休日</th>
-                <th colspan="4" style="text-align:center">チェックボックス</th>
+                <th colspan="6" style="text-align:center">チェックボックス</th>
               </tr>
               <tr>
                 <th>日付</th>
@@ -99,32 +99,49 @@
                 <input type="hidden" name="calendar_id[{{$days->day}}]" value="{{$days->day}}">
                   @endforeach
                     <input type="hidden" name="year" value="{{date('Y')}}">
-                    <input type="hidden" name="month_id" value="{{$days->month_id}}">
+                    <input type="hidden" name="month_id" value="{{$months->month}}">
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
             </table>
-              <div class="container mt-6">
+              <div class="container mt-6 offset-3">
                 <div class="row">
-                  <div class="col-6">
-                    <input type="time" class="form-control" name="official_strat_time" step="900" required value="00:00">
-                    <input type="time" class="form-control" name="official_end_time" step="900" required value="00:00">
-                    <input type="time" class="form-control" name="official_bleak_time" step="900" required value="00:00">
-                  </div>
-                  <div class="col-6">
-                    <input type="text" class="form-control" name="customer" autocomplete="off" required placeholder="顧客名">
-                    <input type="text" class="form-control" name="project" autocomplete="off" required placeholder="プロジェクト名">
-                    <textarea class="form-control" name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
+                  <div class="col">
+                    <div class="input-group mt-3 mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">始業時間</span>
+                        <input type="time" class="form-control" name="official_start_time" step="900" required value="00:00">
+                        <span class="input-group-text">終業時間</span>
+                        <input type="time" class="form-control" name="official_end_time" step="900" required value="00:00">
+                        <span class="input-group-text">休憩時間</span>    
+                        <input type="time" class="form-control" name="official_bleak_time" step="900" required value="00:00">
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-                <div class="container mt-4 mb-4">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-4">
+                        <input type="text" class="form-control" name="customer" autocomplete="off" required placeholder="顧客名">
+                      </div>
+                      <div class="col-4">
+                        <input type="text" class="form-control" name="project" autocomplete="off" required placeholder="プロジェクト名">
+                      </div>
+                    </div>
+                  </div>
+                    <div class="container mt-4">
+                      <div class="row">
+                        <div class="col-8">
+                        <textarea class="form-control" name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                <div class="container mt-4 mb-5">
                   <div class="row">
-                    <div class="col-8 offset-5">
+                    <div class="col-4 offset-3">
                       <button type="submit" class="btn btn-outline-success">送信</button>
                         <button type="reset" class="btn btn-outline-warning">リセット</button>
                       </div>
                     </div> 
                   </div>
-
-      </form>
-  </body>
+              </form>
+          </body>
 @endsection

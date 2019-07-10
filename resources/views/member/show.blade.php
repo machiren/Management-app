@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <div class="container">
+  <div class="container mt-3 mb-4">
     <div class="row">
       <div class="employee_number col-4">
         社員ナンバー {{Auth::user()->employee_number}}
@@ -80,7 +80,7 @@
             <span class="input-group-text">終業時間</span>
             <div class="form-control">{{$summaries->official_end_time}}</div>
             <span class="input-group-text">休憩時間</span>    
-            <div class="form-control">{{$summaries->official_bleak_time}}</div> 
+            <div class="form-control">{{$summaries->official_break_time}}</div> 
           </div>
         </div>
       </div>

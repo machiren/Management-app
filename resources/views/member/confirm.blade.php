@@ -1,4 +1,4 @@
-{{-- @extends('layaouts.app')
+@extends('layaouts.app')
 
 @section('content')
 
@@ -11,7 +11,20 @@
 				{{Auth::user()->name}}
 			</div>
 		</div>
-	</div>
+  </div>
+  @foreach($confirm as $confirms)
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="a">
+          {{$confirms->year}}
+        </div>
+        <div class="col-6">
+          {{$confirms->month_id}}
+        </div>
+      </div>
+    </div>
+  </div>
 	<div class="container">
       <div class="row">    
         <table id="management" class="table table-bordered ">
@@ -36,7 +49,6 @@
             <th>休出</th>
             <th>振休</th>
           </tr>
-          @foreach($confirm as $confirms)
           <tr>
             <td>{{$confirms->calendar_id}}</td>
             <td>{{$confirms->opening_time}}</td>
@@ -62,7 +74,7 @@
 											@foreach($confirm as $confirms)
 												{{$confirms->official_start_time}}
 												{{$confirms->official_end_time}}
-												{{$confirms->official_bleak_time}}
+												{{$confirms->official_break_time}}
 											</td>
 									</div>
 									<div class="col-6">
@@ -78,4 +90,4 @@
 						</table>
 					</div>
 				</div> 
-@endsection --}}
+@endsection

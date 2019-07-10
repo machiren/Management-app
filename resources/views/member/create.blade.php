@@ -112,7 +112,7 @@
                         <span class="input-group-text">終業時間</span>
                         <input type="time" class="form-control" name="official_end_time" step="900" required value="00:00">
                         <span class="input-group-text">休憩時間</span>    
-                        <input type="time" class="form-control" name="official_bleak_time" step="900" required value="00:00">
+                        <input type="time" class="form-control" name="official_break_time" step="900" required value="00:00">
                       </div>
                     </div>
                   </div>

@@ -67,6 +67,7 @@
                                     </a>
                                     <a class="dropdown-item" href="/managements/list">過去の勤務表</a>
                                     <a class="dropdown-item" href="/managements/month_list">入力する</a>
+                                    <a class="dropdown-item" href="/admin/member_list">社員一覧</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

@@ -114,7 +114,7 @@ class MemberController extends Controller
         'month_id' => $request->input('month_id'),
         'year' => $request->input('year')]);}
 
-        return redirect('/');
+        return redirect('/managements.insert');
       }
 
 

@@ -68,24 +68,23 @@
 							<div class="row">
 								<table class="management table table-bordered">
 									<div class="col-6">
-										<tr>
-											<td>
-												{{$confirms->official_start_time}}
-												{{$confirms->official_end_time}}
-												{{$confirms->official_break_time}}
-											</td>
+									<tr>
+										<td>
+											{{$confirms->official_start_time}}
+											{{$confirms->official_end_time}}
+											{{$confirms->official_break_time}}
+										</td>
 									</div>
 									<div class="col-6">
 										<td>
 											{{$confirms->customer}}
 											{{$confirms->project}}
 											{{$confirms->remarks}}
-											@endforeach
+										@endforeach
 										</td>
 									</tr>
-								</div>
+                  </div>
+                </table>
 							</div>
-						</table>
-					</div>
-				</div>
+					  </div>
 @endsection

@@ -36,13 +36,13 @@ class AdminController extends Controller
       return view('admin.monthList', ['month_list'=>$month_list]);
     }
 
-    public function master_show($id, $year, $month){
-      $month_list = Management::with('user')->where('user_id', $id)
-                    ->where('year', $year)->where('month_id', $month)
-                    ->groupBy('_id')->orderBy('month_id','ASC')->get('month_id');
+    // public function master_show($id, $year, $month){
+    //   $month_list = Management::with('user')->where('user_id', $id)
+    //                 ->where('year', $year)->where('month_id', $month)
+    //                 ->groupBy('_id')->orderBy('month_id','ASC')->get('month_id');
   // 未完成だよ
-      return view('admin.monthList', ['month_list'=>$month_list]);
-    }
+    //   return view('admin.monthList', ['month_list'=>$month_list]);
+    // }
 
 
     public function update(Request $request){

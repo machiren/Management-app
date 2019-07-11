@@ -7,7 +7,7 @@
 			<div class='col-3'>
 				社員ナンバー {{Auth::user()->employee_number}}
 			</div>
-  		<div class="col-3">
+      <div class="col-3">
 				{{Auth::user()->name}}
 			</div>
 		</div>
@@ -26,7 +26,7 @@
     </div>
   </div>
 	<div class="container">
-      <div class="row">    
+      <div class="row">
         <table id="management" class="table table-bordered ">
           <tr>
             <th class='none'></th>
@@ -63,15 +63,13 @@
             <td>{{$confirms->holiday_work}}</td>
             <td>{{$confirms->makeup_holiday}}</td>
           </tr>
-          @endforeach
-       	 </table>
+          </table>
 						<div class="container mt-4 mb-4">
 							<div class="row">
 								<table class="management table table-bordered">
-									<div class="col-6">                
+									<div class="col-6">
 										<tr>
 											<td>
-											@foreach($confirm as $confirms)
 												{{$confirms->official_start_time}}
 												{{$confirms->official_end_time}}
 												{{$confirms->official_break_time}}
@@ -82,12 +80,12 @@
 											{{$confirms->customer}}
 											{{$confirms->project}}
 											{{$confirms->remarks}}
-												@endforeach
+											@endforeach
 										</td>
 									</tr>
 								</div>
 							</div>
 						</table>
 					</div>
-				</div> 
+				</div>
 @endsection

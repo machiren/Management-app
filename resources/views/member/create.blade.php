@@ -31,9 +31,9 @@
             <table id="management" class="table table-bordered">
               <tr>
                 <th class='none'></th>
-                <th colspan="5" style="text-align:center">平日</th>
+                <th colspan="3" style="text-align:center">平日</th>
                 <th colspan="2" style="text-align:center">休日</th>
-                <th colspan="4" style="text-align:center">チェックボックス</th>
+                <th colspan="6" style="text-align:center">チェックボックス</th>
               </tr>
               <tr>
                 <th>日付</th>
@@ -54,60 +54,94 @@
                 @foreach($day as $days)
               <tr>
                 <td>{{$days->day}}</td>
-                <td><input type="time" step="900" name="opening_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="ending_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="break_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="holiday_time[{{$days->day}}]" value="00:00"></td>
-                <td><input type="time" step="900" name="holiday_night[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="opening_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="ending_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="break_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="holiday_time[{{$days->day}}]" value="00:00"></td>
+                <td><input class="form-control" type="time" step="900" name="holiday_night[{{$days->day}}]" value="00:00"></td>
                 <td>
                   <input type="hidden" name="holiday[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="holiday[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="holiday[{{$days->day}}]" value="1">
+                    </div>
                 </td>
                 <td>
                   <input type="hidden" name="adsence[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="adsence[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="adsence[{{$days->day}}]" value="1">
+                    </div>
                 </td>
                 <td>
                   <input type="hidden" name="late[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="late[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="late[{{$days->day}}]" value="1">
+                    </div>
                  </td>
                  <td>
                   <input type="hidden" name="leave_early[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="leave_early[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="leave_early[{{$days->day}}]" value="1">
+                    </div>
                  </td>
                  <td>
                    <input type="hidden" name="holiday_work[{{$days->day}}]" value="0">
-                   <input type="checkbox" name="holiday_work[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                   <input class="form-check-input position-static" type="checkbox" name="holiday_work[{{$days->day}}]" value="1">
+                    </div>
                  </td>
                  <td>
                   <input type="hidden" name="makeup_holiday[{{$days->day}}]" value="0">
-                  <input type="checkbox" name="makeup_holiday[{{$days->day}}]" value="1">
+                    <div class="form-check">
+                  <input class="form-check-input position-static" type="checkbox" name="makeup_holiday[{{$days->day}}]" value="1">
+                    </div>
                  </td>
               </tr>
                 <input type="hidden" name="calendar_id[{{$days->day}}]" value="{{$days->day}}">
                   @endforeach
                     <input type="hidden" name="year" value="{{date('Y')}}">
-                    <input type="hidden" name="month_id" value="{{$days->month_id}}">
+                    <input type="hidden" name="month_id" value="{{$months->month}}">
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
             </table>
-              <div class="container mt-6">
+              <div class="container mt-6 offset-3">
                 <div class="row">
-                  <div class="col-4">
-                    <input type="time" name="official_strat_time" step="900" required value="00:00">
-                    <input type="time" name="official_end_time" step="900" required value="00:00">
-                    <input type="time" name="official_bleak_time" step="900" required value="00:00">
-                  </div>
-                  <div class="col-4">
-                    <input type="text" name="customer" autocomplete="off" required placeholder="顧客名">
-                    <input type="text" name="project" autocomplete="off" required placeholder="プロジェクト名">
-                    <textarea name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
-                  </div>
-                  <div class="col-4">
-                      <input type="submit" value="確認(今は送信される)">
-                      <input type="reset" value="リセット">
+                  <div class="col">
+                    <div class="input-group mt-3 mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">始業時間</span>
+                        <input type="time" class="form-control" name="official_start_time" step="900" required value="00:00">
+                        <span class="input-group-text">終業時間</span>
+                        <input type="time" class="form-control" name="official_end_time" step="900" required value="00:00">
+                        <span class="input-group-text">休憩時間</span>    
+                        <input type="time" class="form-control" name="official_break_time" step="900" required value="00:00">
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-      </form>
-  </body>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-4">
+                        <input type="text" class="form-control" name="customer" autocomplete="off" required placeholder="顧客名">
+                      </div>
+                      <div class="col-4">
+                        <input type="text" class="form-control" name="project" autocomplete="off" required placeholder="プロジェクト名">
+                      </div>
+                    </div>
+                  </div>
+                    <div class="container mt-4">
+                      <div class="row">
+                        <div class="col-8">
+                        <textarea class="form-control" name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                <div class="container mt-4 mb-5">
+                  <div class="row">
+                    <div class="col-4 offset-3">
+                      <button type="submit" class="btn btn-outline-success">送信</button>
+                        <button type="reset" class="btn btn-outline-warning">リセット</button>
+                      </div>
+                    </div> 
+                  </div>
+              </form>
+          </body>
 @endsection

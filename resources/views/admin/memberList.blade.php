@@ -17,10 +17,10 @@
 					<div class="list-group">
 						<ul>
 							<li class="list-group-item list-group-item-success">
-								勤務表作成
+								社員一覧
 							</li>
-							@foreach($month as $months)
-								<li><a href="/managements/{{$months->month}}/create" class="list-group-item list-group-item-action" name="month[]">{{$months->month}}月の勤務表</a></li>
+							@foreach($member_list as $member)
+                        <li><a href="/admin/year_list/{{$member->id}}" class="list-group-item list-group-item-action" name="month[]">{{$member->name}}さん</a></li>
 							@endforeach
 						</ul>
 					</div>

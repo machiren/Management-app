@@ -3,15 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
 use Auth;
+use App\User;
 use App\Management;
 use App\Month;
 use App\Calendar;
 use App\Summary;
 
+
 class AdminController extends Controller
 {
+    public function member_list(){
+      $member_list = User::all();
+      
+      return view('admin.memberList', ['member_list'=>$member_list]);
+    }
+
+    public function year_list($id){
+      $year_list = Management::with('user')->where('user_id', $id)->groupBy('year')
+                   ->orderBy('year','DESC')->get('year');
+
+      $user = User::where('id', $id)->first();
+
+      return view('admin.yearList', ['year_list'=>$year_list, 'user'=>$user]);
+    }
+
+    public function month_list($id, $year){
+      $month_list = Management::with('user')->where('user_id', $id)
+                    ->where('year', $year)
+                    ->groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
+  
+      return view('admin.monthList', ['month_list'=>$month_list]);
+    }
+
+    // public function master_show($id, $year, $month){
+    //   $month_list = Management::with('user')->where('user_id', $id)
+    //                 ->where('year', $year)->where('month_id', $month)
+    //                 ->groupBy('_id')->orderBy('month_id','ASC')->get('month_id');
+  // 未完成だよ
+    //   return view('admin.monthList', ['month_list'=>$month_list]);
+    // }
+
+
     public function update(Request $request){
         
         $management = Management::where('month_id',$request->month_id)
@@ -41,4 +74,5 @@ class AdminController extends Controller
             }
           return redirect('/');
         }
+
 }

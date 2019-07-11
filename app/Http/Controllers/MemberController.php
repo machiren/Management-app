@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use App\User;
 use Auth;
 use App\Management;
@@ -36,6 +37,38 @@ class MemberController extends Controller
       return view('member.create',['day'=>$day,'month'=>$month]);
     }
 
+    public function confirm(Request $request){
+
+      $request->session()->regenerate();
+      $get = $request->session()->put([
+
+        'calendar_id' => $request->calendar_id,
+        'opening_time' => $request->opening_time,
+        'ending_time' => $request->ending_time,
+        'break_time' => $request->break_time,
+        'holiday_time' => $request->holiday_time,
+        'holiday_night' => $request->holiday_night,
+        'holiday' => $request->holiday,
+        'adsence' => $request->adsence,
+        'late' => $request->late,
+        'leave_early' => $request->leave_early,
+        'holiday_work' => $request->holiday_work,
+        'makeup_holiday' => $request->makeup_holiday,
+        'official_start_time' => $request->official_start_time,
+        'official_end_time' => $request->official_end_time,
+        'offcial_break_time' => $request->official_break_time,
+        'customer' => $request->customer,
+        'project' => $request->project,
+        'remarks' => $request->remarks,
+        'year' => $request->year,
+        'month_id' => $request->month_id,
+        'user_id' => $request->user_id]);
+
+      $confirm = $request->session()->all();dd($confirm);
+
+      return view('member.confirm',['confirm'=>$confirm]);
+    }
+
 
     public function store(Request $request){
 
@@ -43,17 +76,17 @@ class MemberController extends Controller
 
         'user_id' => $request->input('user_id'),
         'year' => $request->input('year'),
-        'month' => $request->input('month_id'),
+        'month_id' => $request->input('month_id'),
         'remarks' => $request->input('remarks'),
         'customer' => $request->input('customer'),
         'project' => $request->input('project'),
-        'official_strat_time' => $request->input('official_strat_time'),
+        'official_start_time' => $request->input('official_start_time'),
         'official_end_time' => $request->input('official_end_time'),
-        'official_bleak_time' => $request->input('official_bleak_time')]);
-      
-      
+        'official_break_time' => $request->input('official_break_time')]);
+
+
       foreach($request->input(
-        
+
         'opening_time','ending_time',
         'break_time','total_time','over_time',
         'night_time','holiday_time','holiday_night',
@@ -81,7 +114,7 @@ class MemberController extends Controller
         'month_id' => $request->input('month_id'),
         'year' => $request->input('year')]);}
 
-        return redirect('/');
+        return redirect('/managements.insert');
       }
 
 
@@ -94,15 +127,15 @@ class MemberController extends Controller
     }
 
 
-    public function show($id,$auth){
+    public function show($auth,$id){
 
       $management = Management::where('month_id',$id)
                   ->whereBetween('calendar_id',[1,31])->get();
-      
+
       $month = Month::where('month',$id)->get();
 
       $summary = Summary::with('user')->where('user_id',$auth)
-                 ->where('month',$id)->get();
+                ->where('month_id',$id)->get();
 
       return view('member.show',['management'=>$management,'month'=>$month,'summary'=>$summary]);
     }

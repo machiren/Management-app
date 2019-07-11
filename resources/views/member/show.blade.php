@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="container">
-    <div class="row">    
+    <div class="row">
       <table id="management" class="table table-bordered ">
         <tr>
           <th class='none'></th>

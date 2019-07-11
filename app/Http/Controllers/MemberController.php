@@ -13,8 +13,8 @@ use App\Calendar;
 
 class MemberController extends Controller
 {
-    public function index()
-    {
+    public function index(){
+
       $member = Auth::user();
 
       return view('member.index',['member'=>$member]);

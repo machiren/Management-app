@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-3">
-				社員ナンバー {{Auth::user()->employee_number}}				
+				社員ナンバー {{Auth::user()->employee_number}}
 			</div>
 			<div class="col-3">
 				{{Auth::user()->name}}

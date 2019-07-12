@@ -1,16 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
-		<div class="row">
-			<div class="col-3">
-				社員ナンバー {{Auth::user()->employee_number}}
-			</div>
-			<div class="col-3">
-				{{Auth::user()->name}}
-			</div>
-		</div>
-	</div>
 		<div class="container mt-5 mb-4">
 			<div class="row">
 				<div class="col-8 offset-2">
@@ -20,7 +10,7 @@
 								年一覧
 							</li>
 							@foreach($year_list as $year)
-                        <li><a href="/admin/month_list/{{$user->id}}/{{$year->year}}" class="list-group-item list-group-item-action" name="month[]">{{$year->year}}年</a></li>
+                        <li><a href="/admin/month_list/{{$user->id}}/{{$year->year}}" class="list-group-item list-group-item-action" name="year[]">{{$year->year}}年</a></li>
 							@endforeach
 						</ul>
 					</div>

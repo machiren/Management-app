@@ -65,10 +65,13 @@
                                         document.getElementById('logout-form').submit();">
                                         {{ __('ログアウト') }}
                                     </a>
-                                    <a class="dropdown-item" href="/managements/list">過去の勤務表</a>
+                                    @if(Auth::user()->admin === 1)
+                                    <a class="dropdown-item" href="/managements/read_list">過去の勤務表</a>
                                     <a class="dropdown-item" href="/managements/month_list">入力する</a>
+                                    @endif
+                                    @if(Auth::user()->admin === 0)
                                     <a class="dropdown-item" href="/admin/member_list">社員一覧</a>
-
+                                    @endif
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

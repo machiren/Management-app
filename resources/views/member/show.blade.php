@@ -2,26 +2,25 @@
 
 @section('content')
 
-  <div class="container mt-3 mb-4">
+  <div class="container mt-3 mb-6">
     <div class="row">
-      <div class="employee_number col-4">
+      <div class="employee_number col-6">
         社員ナンバー {{Auth::user()->employee_number}}
       </div>
       <div class="name col-4">
         {{Auth::user()->name}}
       </div>
-      <div class="month col4">
-        @foreach($month as $months)
-          {{$months->month}}月
-        @endforeach
-      </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
       <table id="management" class="table table-bordered ">
         <tr>
-          <th class='none'></th>
+          <th class='none'>
+            @foreach($month as $months)
+              {{$months->month}}月
+            @endforeach
+          </th>
           <th colspan="3" style="text-align:center">平日</th>
           <th colspan="2" style="text-align:center">休日</th>
           <th colspan="6" style="text-align:center">勤怠</th>
@@ -79,8 +78,8 @@
             <div class="form-control">{{$summaries->official_start_time}}</div>
             <span class="input-group-text">終業時間</span>
             <div class="form-control">{{$summaries->official_end_time}}</div>
-            <span class="input-group-text">休憩時間</span>    
-            <div class="form-control">{{$summaries->official_break_time}}</div> 
+            <span class="input-group-text">休憩時間</span>
+            <div class="form-control">{{$summaries->official_break_time}}</div>
           </div>
         </div>
       </div>
@@ -107,5 +106,5 @@
             <div class="input-group-prepend">
               <span class="input-group-text">備考欄</span>
               <span class="form-control text-nowrap">{{$summaries->remarks}}</span>
-              @endforeach 
+              @endforeach
 @endsection

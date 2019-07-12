@@ -114,11 +114,11 @@ class MemberController extends Controller
         'month_id' => $request->input('month_id'),
         'year' => $request->input('year')]);}
 
-        return redirect('/managements.insert');
+        return redirect('/managements/insert');
       }
 
 
-    public function list(){
+    public function read_list(){
 
       $list = Management::groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
       $auth = Auth::user()->id;
@@ -129,17 +129,10 @@ class MemberController extends Controller
 
     public function show($auth,$id){
 
-      $management = Management::where('month_id',$id)
-                  ->whereBetween('calendar_id',[1,31])->get();
-
+      $management = Management::where('month_id',$id)->whereBetween('calendar_id',[1,31])->get();
       $month = Month::where('month',$id)->get();
-
-      $summary = Summary::with('user')->where('user_id',$auth)
-                ->where('month_id',$id)->get();
+      $summary = Summary::with('user')->where('user_id',$auth)->where('month_id',$id)->get();
 
       return view('member.show',['management'=>$management,'month'=>$month,'summary'=>$summary]);
     }
-}         //坂井さんから〜
-          //hiddenで配列にして1~31日分のIDを渡しておく
-          //1日に対して更新をかけるinputに配列を入れる！
-          //これならupdateはできると思うけどupdateするIDの指定ができてない？
+}

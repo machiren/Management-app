@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-<head>
-  <meta charset="utf-8">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
   <body>
     <div class="container">
       <div class="row">
@@ -76,25 +71,25 @@
                     <div class="form-check">
                   <input class="form-check-input position-static" type="checkbox" name="late[{{$days->day}}]" value="1">
                     </div>
-                 </td>
-                 <td>
+                </td>
+                <td>
                   <input type="hidden" name="leave_early[{{$days->day}}]" value="0">
                     <div class="form-check">
                   <input class="form-check-input position-static" type="checkbox" name="leave_early[{{$days->day}}]" value="1">
                     </div>
-                 </td>
-                 <td>
-                   <input type="hidden" name="holiday_work[{{$days->day}}]" value="0">
+                </td>
+                <td>
+                  <input type="hidden" name="holiday_work[{{$days->day}}]" value="0">
                     <div class="form-check">
-                   <input class="form-check-input position-static" type="checkbox" name="holiday_work[{{$days->day}}]" value="1">
+                  <input class="form-check-input position-static" type="checkbox" name="holiday_work[{{$days->day}}]" value="1">
                     </div>
-                 </td>
-                 <td>
+                </td>
+                <td>
                   <input type="hidden" name="makeup_holiday[{{$days->day}}]" value="0">
                     <div class="form-check">
                   <input class="form-check-input position-static" type="checkbox" name="makeup_holiday[{{$days->day}}]" value="1">
                     </div>
-                 </td>
+                </td>
               </tr>
                 <input type="hidden" name="calendar_id[{{$days->day}}]" value="{{$days->day}}">
                   @endforeach
@@ -111,7 +106,7 @@
                         <input type="time" class="form-control" name="official_start_time" step="900" required value="00:00">
                         <span class="input-group-text">終業時間</span>
                         <input type="time" class="form-control" name="official_end_time" step="900" required value="00:00">
-                        <span class="input-group-text">休憩時間</span>    
+                        <span class="input-group-text">休憩時間</span>
                         <input type="time" class="form-control" name="official_break_time" step="900" required value="00:00">
                       </div>
                     </div>
@@ -137,10 +132,10 @@
                 <div class="container mt-4 mb-5">
                   <div class="row">
                     <div class="col-4 offset-3">
-                      <button type="submit" class="btn btn-outline-success">送信</button>
-                        <button type="reset" class="btn btn-outline-warning">リセット</button>
+                      <button type="submit" class="btn btn-lg btn-outline-success">送信</button>
+                        <button type="reset" class="btn btn-lg btn-outline-warning">リセット</button>
                       </div>
-                    </div> 
+                    </div>
                   </div>
               </form>
           </body>

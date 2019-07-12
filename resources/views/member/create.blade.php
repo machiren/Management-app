@@ -13,11 +13,6 @@
         <div class='col-4'>
           社員ナンバー {{Auth::user()->employee_number}}
         </div>
-        <div class="col-2">
-          @foreach($month as $months)
-            {{$months->month}}月の勤務表入力する
-          @endforeach
-        </div>
       </div>
     </div>
       <form action="/managements" method="POST">
@@ -25,7 +20,11 @@
           <div class="row">
             <table id="management" class="table table-bordered">
               <tr>
-                <th class='none'></th>
+                <th class='none'>
+                  @foreach($month as $months)
+                    {{$months->month}}月
+                  @endforeach
+                </th>
                 <th colspan="3" style="text-align:center">平日</th>
                 <th colspan="2" style="text-align:center">休日</th>
                 <th colspan="6" style="text-align:center">チェックボックス</th>

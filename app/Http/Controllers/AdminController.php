@@ -88,13 +88,14 @@ class AdminController extends Controller
 
     public function delete($id,$year,$month){
 
-      $get_delete_id = Management::with('user')->where('user_id', $id)->where('year', $year)->where('month_id', $month)->get();
+      $get_delete_id1 = Summary::with('user')->where('user_id',$id)->where('year',$year)->where('month_id',$month)->delete();
+      $get_delete_id2 = Management::with('user')->where('user_id', $id)->where('year', $year)->where('month_id', $month)->get();
 
-      foreach($get_delete_id as $derete){
-
-      $derete->delete();
-
+      foreach($get_delete_id2 as $derete)
+      {
+        $derete->delete();
       }
+
       return redirect('/');
   }
 }

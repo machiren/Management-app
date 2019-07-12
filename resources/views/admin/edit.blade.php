@@ -20,7 +20,7 @@
 		@csrf
 			<table id="management" class="table table-bordered ">
 				<tr>
-					<th class='month'>{{$month->month}}</th>
+					<th class='month'>{{$month->month}}月</th>
 					<th colspan="3" style="text-align:center">平日</th>
 					<th colspan="2" style="text-align:center">休日</th>
 					<th colspan="6" style="text-align:center">勤怠</th>

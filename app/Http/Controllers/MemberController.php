@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Session;
 use App\User;
 use Auth;
@@ -71,6 +73,12 @@ class MemberController extends Controller
 
 
     public function store(Request $request){
+
+        $request->validate([
+
+        'year' => 'unique:managements,year',
+        'month_id' => 'unique:managements,month_id'
+        ]);
 
       Summary::create([
 

@@ -74,12 +74,6 @@ class MemberController extends Controller
 
     public function store(Request $request){
 
-        $request->validate([
-
-        'year' => 'unique:managements,year',
-        'month_id' => 'unique:managements,month_id'
-        ]);
-
       Summary::create([
 
         'user_id' => $request->input('user_id'),

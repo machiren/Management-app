@@ -10,7 +10,7 @@
 								年一覧
 							</li>
 							@foreach($year_list as $year)
-                        <li><a href="/admin/month_list/{{$user->id}}/{{$year->year}}" class="list-group-item list-group-item-action" name="year[]">{{$year->year}}年の勤務表</a></li>
+						<li><a href="/managements/{{$year->year}}/month_list" class="list-group-item list-group-item-action" name="year[]">{{$year->year}}年の勤務表</a></li>
 							@endforeach
 						</ul>
 					</div>

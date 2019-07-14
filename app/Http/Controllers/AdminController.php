@@ -82,7 +82,7 @@ class AdminController extends Controller
       Management::where('id',$id)->update($update_culumn);
 
       }
-        return redirect('/');
+        return redirect('/managements/updated');
     }
 
 
@@ -96,6 +96,6 @@ class AdminController extends Controller
         $derete->delete();
       }
 
-      return redirect('/');
+      return redirect('managements/deleted');
   }
 }

@@ -26,8 +26,18 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function insert()
-   {
-       return view('member.insert');
-   }
+    public function created()
+    {
+        return view('member.created');
+    }
+
+    public function updated(){
+
+        return view('admin.updated');
+    }
+
+    public function deleted(){
+
+        return view('admin.deleted');
+    }
 }

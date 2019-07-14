@@ -50,27 +50,27 @@
 					<td><input class="form-control" type="time" name="holiday_night[{{$edit->id}}]" step="900" value="{{$edit->holiday_night}}"></td>
 					<td>
 						<input type="hidden" name="holiday[{{$edit->id}}]" value="0">
-						<input type="checkbox" name="holiday[{{$edit->id}}]" value="1">
+						<input type="checkbox" name="holiday[{{$edit->id}}]" value="1" {{$edit->holiday ? 'checked' : ''}}>
 					</td>
 					<td>
 						<input type="hidden" name="adsence[{{$edit->id}}]" value="0">
-						<input type="checkbox" name="adsence[{{$edit->id}}]" value="1">
+						<input type="checkbox" name="adsence[{{$edit->id}}]" value="1" {{$edit->adsence ? 'checked' : ''}}>
 					</td>
 					<td>
 						<input type="hidden" name="late[{{$edit->id}}]" value="0">
-						<input type="checkbox" name="late[{{$edit->id}}]" value="1">
+						<input type="checkbox" name="late[{{$edit->id}}]" value="1" {{$edit->late ? 'checked' : ''}}>
 					</td>
 					<td>
 						<input type="hidden" name="leave_early[{{$edit->id}}]" value="0">
-						<input type="checkbox" name="leave_early[{{$edit->id}}]" value="1">
+						<input type="checkbox" name="leave_early[{{$edit->id}}]" value="1" {{$edit->leave_early ? 'checked' : ''}}>
 					</td>
 					<td>
 						<input type="hidden" name="holiday_work[{{$edit->id}}]" value="0">
-						<input type="checkbox" name="holiday_work[{{$edit->id}}]" value="1">
+						<input type="checkbox" name="holiday_work[{{$edit->id}}]" value="1" {{$edit->holiday_work ? 'checked' : ''}}>
 					</td>
 					<td>
 						<input type="hidden" name="makeup_holiday[{{$edit->id}}]" value="0">
-						<input type="checkbox" name="makeup_holiday[{{$edit->id}}]" value="1">
+						<input type="checkbox" name="makeup_holiday[{{$edit->id}}]" value="1" {{$edit->makeup_holiday ? 'checked' : ''}}>
 					</td>
 				</tr>
 				<input type="hidden" name="id[{{$edit->id}}]" value="{{$edit->id}}">

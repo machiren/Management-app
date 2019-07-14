@@ -61,50 +61,55 @@
     </div>
   </div>
   <div class="container mt-2 offset-3">
-    <div class="row">
-      <div class="col-3">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">給与計算用欄</span>
-            <div class="form-control">後程</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            @foreach($summary as $summaries)
-            <span class="input-group-text">始業時間</span>
-            <div class="form-control">{{$summaries->official_start_time}}</div>
-            <span class="input-group-text">終業時間</span>
-            <div class="form-control">{{$summaries->official_end_time}}</div>
-            <span class="input-group-text">休憩時間</span>
-            <div class="form-control">{{$summaries->official_break_time}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <div class="container mt-5 mb-4">
       <div class="row">
-        <div class="col-3 offset-3">
+        <div class="col-3">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">顧客名</span>
-              <span class="form-control text-nowrap">{{$summaries->customer}}</span>
-              <span class="input-group-text">プロジェクト名</span>
-              <span class="form-control text-nowrap">{{$summaries->project}}</span>
+              <span class="input-group-text">給与計算用欄</span>
+              <div class="form-control">後程</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                @foreach($summary as $summaries)
+                <span class="input-group-text">始業時間</span>
+                <div class="form-control">{{$summaries->official_start_time}}</div>
+                <span class="input-group-text">終業時間</span>
+                <div class="form-control">{{$summaries->official_end_time}}</div>
+                <span class="input-group-text">休憩時間</span>
+                <div class="form-control">{{$summaries->official_break_time}}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container mb-5">
-      <div class="row">
-        <div class="col col-3 offset-3">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">備考欄</span>
-              <span class="form-control text-nowrap">{{$summaries->remarks}}</span>
-              @endforeach
-@endsection
+      <div class="container mt-5 mb-4">
+          <div class="row">
+            <div class="col-3 offset-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">顧客名</span>
+                  <span class="form-control text-nowrap">{{$summaries->customer}}</span>
+                  <span class="input-group-text">プロジェクト名</span>
+                  <span class="form-control text-nowrap">{{$summaries->project}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container mb-5">
+          <div class="row">
+            <div class="col col-3 offset-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">備考欄</span>
+                  <span class="form-control text-nowrap">{{$summaries->remarks}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    @endforeach
+    @endsection

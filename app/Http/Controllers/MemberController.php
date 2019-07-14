@@ -23,7 +23,7 @@ class MemberController extends Controller
     }
 
 
-    public function month_list(){
+    public function list(){
 
       $month = Month::select()->get();
 
@@ -120,25 +120,35 @@ class MemberController extends Controller
         'month_id' => $request->input('month_id'),
         'year' => $request->input('year')]);}
 
-        return redirect('/managements/insert');
+        return redirect('/managements/created');
       }
 
 
-    public function read_list(){
+    public function year_list(){
 
-      $list = Management::groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
-      $auth = Auth::user()->id;
+      $get_user = Auth::user()->id;
+      $year_list = Management::groupBy('year')->get('year');
 
-      return view('member.list',['list'=>$list,'auth'=>$auth]);
+      return view('member.year_List', ['user'=>$get_user,'year_list'=>$year_list]);
     }
 
 
-    public function show($auth,$id){
+    public function month_list($year){
 
-      $management = Management::where('month_id',$id)->whereBetween('calendar_id',[1,31])->get();
-      $month = Month::where('month',$id)->get();
-      $summary = Summary::with('user')->where('user_id',$auth)->where('month_id',$id)->get();
+      $get_auth = Auth::user()->id;
+      $get_year = Management::where('year',$year)->first();
+      $list = Management::where('year',$year)->groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
 
-      return view('member.show',['management'=>$management,'month'=>$month,'summary'=>$summary]);
+      return view('member.list',['auth'=>$get_auth,'year'=>$get_year,'list'=>$list]);
+    }
+
+
+    public function show($auth,$year,$month){
+
+      $get_month = Month::where('month',$month)->get();
+      $management = Management::where('year',$year)->where('month_id',$month)->whereBetween('calendar_id',[1,31])->get();
+      $summary = Summary::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->get();
+
+      return view('member.show',['month'=>$get_month,'management'=>$management,'summary'=>$summary]);
     }
 }

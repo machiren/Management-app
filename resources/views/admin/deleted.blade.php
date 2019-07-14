@@ -5,16 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">board</div>
+                <div class="card-header text-white bg-success">board</div>
 
-                <div class="card-body">
+                <div class="card-body ">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    登録完了しました！
+                    削除しました！
                 </div>
             </div>
         </div>

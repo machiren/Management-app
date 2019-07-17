@@ -17,10 +17,10 @@
     <div class="row">
       <div class="col-6">
         <div class="a">
-          {{$confirms->year}}
+          {{$confirms['year']}}
         </div>
         <div class="col-6">
-          {{$confirms->month_id}}
+          {{Session::get($confirms->month_id)}}
         </div>
       </div>
     </div>
@@ -85,6 +85,8 @@
 									</tr>
                   </div>
                 </table>
-							</div>
-					  </div>
+						</div>
+          </div>
+      </div>
+  </div>
 @endsection

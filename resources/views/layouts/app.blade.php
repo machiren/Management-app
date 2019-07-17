@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/asset/test.js') }}" defer></script>
     <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
 
 

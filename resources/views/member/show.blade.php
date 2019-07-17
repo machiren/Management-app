@@ -56,20 +56,44 @@
           <td>{{($managements->makeup_holiday)}}</td>
         </tr>
           @endforeach
+        <tr>
+          <td>計算</td>
+          <td>実働合計</td>
+          <td>8h超合計</td>
+          <td>深夜合計</td>
+          <td>休日合計</td>
+          <td>深夜合計</td>
+          <td>休暇合計</td>
+          <td>欠勤合計</td>
+          <td>遅刻合計</td>
+          <td>早退合計</td>
+          <td>休出合計</td>
+          <td>振休合計</td>
+        </tr>
+        <tr>
+        <td>
+          @foreach($month as $months)
+          {{$months->month}}月
+          @endforeach
+        </td>
+          <td>{{$total_work_time}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{$total['holiday']}}</td>
+          <td>{{$total['adsence']}}</td>
+          <td>{{$total['late']}}</td>
+          <td>{{$total['leave_early']}}</td>
+          <td>{{$total['holiday_work']}}</td>
+          <td>{{$total['makeup_holiday']}}</td>
+        </tr>
       </table>
       </div>
     </div>
   </div>
-  <div class="container mt-2 offset-3">
+  <div class="container mt-2 offset-4">
       <div class="row">
-        <div class="col-3">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">給与計算用欄</span>
-              <div class="form-control">後程</div>
-            </div>
-          </div>
-        </div>
         <div class="col-3">
             <div class="input-group">
               <div class="input-group-prepend">
@@ -87,7 +111,7 @@
       </div>
       <div class="container mt-5 mb-4">
           <div class="row">
-            <div class="col-3 offset-3">
+            <div class="col-3 offset-4">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">顧客名</span>
@@ -101,7 +125,7 @@
         </div>
         <div class="container mb-5">
           <div class="row">
-            <div class="col col-3 offset-3">
+            <div class="col col-3 offset-4">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">備考欄</span>

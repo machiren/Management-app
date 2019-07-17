@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Datetime;
 use App\User;
 use App\Management;
 use App\Month;
@@ -44,9 +45,49 @@ class AdminController extends Controller
       $get_year = Management::with('user')->where('year',$year)->first();
       $get_month = Month::where('month',$month)->first();
       $get_user = User::where('id',$id)->first();
+      $total = [
 
-      return view('admin.show',['show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,'user'=>$get_user]);
+        'holiday' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('holiday'),
+        'adsence' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('adsence'),
+        'late' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('late'),
+        'leave_early' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('leave_early'),
+        'holiday_work' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('holiday_work'),
+        'makeup_holiday' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('makeup_holiday')];
+
+      $get_total_time = Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->select('opening_time','ending_time','break_time')->get();
+
+      $sum_time = 0;
+      $sum_time1 = 0;
+      foreach($get_total_time as $total_time){
+
+      $end_time = new DateTime(date(date('Y-m-d')." ". $total_time->ending_time));
+      $start_time = new DateTime(date(date('Y-m-d')." ". $total_time->opening_time));
+      $break_time = new DateTime(date(date('Y-m-d')." ". $total_time->break_time));
+
+      $difference = $end_time->diff($start_time)->format(date('Y-m-d')." ".'%H:%I:%S');
+      $string = new DateTime(date(" ".$difference));
+      $difference_1 = $string->diff($break_time)->format(date('Y-m-d')." ".'%H:%I:%S');
+      $string_1 = strtotime($difference_1);
+      $fixed = date('Y-m-d'." ".'00:00:00');
+      $string_2 = strtotime($fixed);
+      $time_total = $string_1 - $string_2;
+      $sum_time += $time_total;
+      $sum_time1 += $time_total;
     }
+
+      $sum_time = $sum_time / 3600;
+      $sum_time1 = floor($sum_time1 / 3600);
+      $dot = number_format($sum_time - $sum_time1,2);
+
+      $minutes = round($dot * 60);
+      $total_work_time = sprintf("$sum_time1".':'.'%02d',"$minutes");
+
+      return view('admin.show',['show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time]);
+    }
+
+    //8h越え = 実働時間 - 08:00
+    //深夜時間 = 就業時間 - 22:00
+    //実働時間 = 就業時間 - 始業時間 - 休憩時間
 
 
     public function edit($id,$year,$month){

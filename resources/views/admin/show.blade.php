@@ -53,6 +53,36 @@
             <td>{{$show->makeup_holiday}}</td>
           </tr>
             @endforeach
+            <tr>
+                <td>計算</td>
+                <td>実働合計</td>
+                <td>8h超合計</td>
+                <td>深夜合計</td>
+                <td>休日合計</td>
+                <td>深夜合計</td>
+                <td>休暇合計</td>
+                <td>欠勤合計</td>
+                <td>遅刻合計</td>
+                <td>早退合計</td>
+                <td>休出合計</td>
+                <td>振休合計</td>
+              </tr>
+              <tr>
+              <td>
+                {{$month->month}}月
+              </td>
+                <td>{{$total_work_time}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{$total['holiday']}}</td>
+                <td>{{$total['adsence']}}</td>
+                <td>{{$total['late']}}</td>
+                <td>{{$total['leave_early']}}</td>
+                <td>{{$total['holiday_work']}}</td>
+                <td>{{$total['makeup_holiday']}}</td>
+              </tr>
         </table>
       </div>
     </div>

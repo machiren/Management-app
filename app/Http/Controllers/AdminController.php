@@ -60,13 +60,17 @@ class AdminController extends Controller
       $sum_time1 = 0;
       foreach($get_total_time as $total_time){
 
+      //時間の代入
       $end_time = new DateTime(date(date('Y-m-d')." ". $total_time->ending_time));
       $start_time = new DateTime(date(date('Y-m-d')." ". $total_time->opening_time));
       $break_time = new DateTime(date(date('Y-m-d')." ". $total_time->break_time));
 
+      //一日の総労働時間の合計
       $difference = $end_time->diff($start_time)->format(date('Y-m-d')." ".'%H:%I:%S');
       $string = new DateTime(date(" ".$difference));
       $difference_1 = $string->diff($break_time)->format(date('Y-m-d')." ".'%H:%I:%S');
+
+      //UNIX_TIMEを基準に秒に直す
       $string_1 = strtotime($difference_1);
       $fixed = date('Y-m-d'." ".'00:00:00');
       $string_2 = strtotime($fixed);
@@ -74,17 +78,19 @@ class AdminController extends Controller
       $sum_time += $time_total;
       $sum_time1 += $time_total;
     }
-
+      //時間を秒にしたやつを割って戻す
       $sum_time = $sum_time / 3600;
+      //小数点をを出す
       $sum_time1 = floor($sum_time1 / 3600);
+      //出した小数点との差分を計算する(分を求めるため)
       $dot = number_format($sum_time - $sum_time1,2);
-
+      //分を60進法で戻して切り上げる
       $minutes = round($dot * 60);
+      //文字列として連結させて分が0だと0埋めするように記述する
       $total_work_time = sprintf("$sum_time1".':'.'%02d',"$minutes");
 
       return view('admin.show',['show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time]);
     }
-
     //8h越え = 実働時間 - 08:00
     //深夜時間 = 就業時間 - 22:00
     //実働時間 = 就業時間 - 始業時間 - 休憩時間

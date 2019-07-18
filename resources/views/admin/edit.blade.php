@@ -22,7 +22,7 @@
 				<tr>
 					<th class='month'>{{$month->month}}月</th>
 					<th colspan="3" style="text-align:center">平日</th>
-					<th colspan="2" style="text-align:center">休日</th>
+					<th colspan="3" style="text-align:center">休日</th>
 					<th colspan="6" style="text-align:center">勤怠</th>
 				</tr>
 				<tr>
@@ -31,8 +31,9 @@
 					<th>始業時刻</th>
 					<th>終業時刻</th>
 					<th>休憩時間</th>
-					<th>休日</th>
-					<th>休日深夜</th>
+					<th>始業時刻</th>
+					<th>終業時刻</th>
+					<th>休憩時間</th>
 					<th>休暇</th>
 					<th>欠勤</th>
 					<th>遅刻</th>
@@ -43,11 +44,12 @@
 				@foreach($edit_list as $edit)
 				<tr>
 					<td>{{$edit->calendar_id}}</td>
-					<td><input class="form-control" type="time" name="opening_time[{{$edit->id}}]" step="900" value="{{$edit->opening_time}}"></td>
-					<td><input class="form-control" type="time" name="ending_time[{{$edit->id}}]" step="900" value="{{$edit->ending_time}}"></td>
-					<td><input class="form-control" type="time" name="break_time[{{$edit->id}}]" step="900" value="{{$edit->break_time}}"></td>
-					<td><input class="form-control" type="time" name="holiday_time[{{$edit->id}}]" step="900" value="{{$edit->holiday_time}}"></td>
-					<td><input class="form-control" type="time" name="holiday_night[{{$edit->id}}]" step="900" value="{{$edit->holiday_night}}"></td>
+					<td><input class="form-control" type="time" name="opening_time[{{$edit->id}}]" value="{{$edit->opening_time}}"></td>
+					<td><input class="form-control" type="time" name="ending_time[{{$edit->id}}]" value="{{$edit->ending_time}}"></td>
+					<td><input class="form-control" type="time" name="break_time[{{$edit->id}}]" value="{{$edit->break_time}}"></td>
+					<td><input class="form-control" type="time" name="holiday_start_time[{{$edit->id}}]" value="{{$edit->holiday_start_time}}"></td>
+					<td><input class="form-control" type="time" name="holiday_end_time[{{$edit->id}}]" value="{{$edit->holiday_end_time}}"></td>
+					<td><input class="form-control" type="time" name="holiday_break_time[{{$edit->id}}]" value="{{$edit->holiday_break_time}}"></td>
 					<td>
 						<input type="hidden" name="holiday[{{$edit->id}}]" value="0">
 						<input type="checkbox" name="holiday[{{$edit->id}}]" value="1" {{$edit->holiday ? 'checked' : ''}}>

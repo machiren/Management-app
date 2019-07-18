@@ -22,7 +22,7 @@
             @endforeach
           </th>
           <th colspan="3" style="text-align:center">平日</th>
-          <th colspan="2" style="text-align:center">休日</th>
+          <th colspan="3" style="text-align:center">休日</th>
           <th colspan="6" style="text-align:center">勤怠</th>
         </tr>
         <tr>
@@ -31,8 +31,9 @@
           <th>始業時刻</th>
           <th>終業時刻</th>
           <th>休憩時間</th>
-          <th>休日</th>
-          <th>休日深夜</th>
+          <th>始業時刻</th>
+          <th>終業時刻</th>
+          <th>休憩時間</th>
           <th>休暇</th>
           <th>欠勤</th>
           <th>遅刻</th>
@@ -46,14 +47,15 @@
           <td>{{$managements->opening_time}}</td>
           <td>{{$managements->ending_time}}</td>
           <td>{{$managements->break_time}}</td>
-          <td>{{$managements->holiday_time}}</td>
-          <td>{{$managements->holiday_night}}</td>
-          <td>{{($managements->holiday)}}</td>
-          <td>{{($managements->adsence)}}</td>
-          <td>{{($managements->late)}}</td>
-          <td>{{($managements->leave_early)}}</td>
-          <td>{{($managements->holiday_work)}}</td>
-          <td>{{($managements->makeup_holiday)}}</td>
+          <td>{{$managements->holiday_start_time}}</td>
+          <td>{{$managements->holiday_end_time}}</td>
+          <td>{{$managements->holiday_break_time}}</td>
+          <td>{{$managements->holiday}}</td>
+          <td>{{$managements->adsence}}</td>
+          <td>{{$managements->late}}</td>
+          <td>{{$managements->leave_early}}</td>
+          <td>{{$managements->holiday_work}}</td>
+          <td>{{$managements->makeup_holiday}}</td>
         </tr>
           @endforeach
         <tr>
@@ -63,6 +65,7 @@
           <td>深夜合計</td>
           <td>休日合計</td>
           <td>深夜合計</td>
+          <td></td>
           <td>休暇合計</td>
           <td>欠勤合計</td>
           <td>遅刻合計</td>
@@ -76,10 +79,11 @@
           {{$months->month}}月
           @endforeach
         </td>
-          <td>{{$total_work_time}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <td>{{$total_work_time}}</td>
+        <td>{{$eight_over_time}}</td>
+        <td>{{$night_work_time}}</td>
+        <td>{{$holiday_work_time}}</td>
+        <td>{{$holiday_night_work_time}}</td>
           <td></td>
           <td>{{$total['holiday']}}</td>
           <td>{{$total['adsence']}}</td>

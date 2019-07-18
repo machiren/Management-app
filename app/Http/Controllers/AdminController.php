@@ -69,21 +69,21 @@ class AdminController extends Controller
 
       $get_total_time = Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->get();
 
-      //総労働時間を求める//
-      $sum_time = 0;
-      $sum_time1 = 0;
-      $fixed = date('Y-m-d'." ".'00:00:00');
-      $string_2 = strtotime($fixed);
-      //8h超を求める//
-      $over_work = 0;
-      $over_work1 = 0;
-      $over_work_hour = date('Y-m-d'." ".'08:00:00');
-      $over_work_hour_seconds = strtotime($over_work_hour);
-      //10時以降を求める//
-      $night_work = 0;
-      $night_work1 = 0;
-      $night_work_hour = date('Y-m-d'." ".'22:00:00');
-      $night_work_hour_seconds = strtotime($night_work_hour);
+      //総労働時間を求める//                                         //8h超を求める//
+      $sum_time = 0;                                              $over_work = 0;
+      $sum_time1 = 0;                                             $over_work1 = 0;
+      $fixed = date('Y-m-d'." ".'00:00:00');                      $over_work_hour = date('Y-m-d'." ".'08:00:00');
+      $string_2 = strtotime($fixed);                              $over_work_hour_seconds = strtotime($over_work_hour);
+
+      //10時以降を求める//                                          //休日合計を求める
+      $night_work = 0;                                            $holiday_work = 0;
+      $night_work1 = 0;                                           $holiday_work1 = 0;
+      $night_work_hour = date('Y-m-d'." ".'22:00:00');            $fixed1 = date('Y-m-d'." ".'00:00:00');
+      $night_work_hour_seconds = strtotime($night_work_hour);     $string_5 = strtotime($fixed1);
+
+      //休日10時以降を求める
+      $holiday_night_work = 0;
+      $holiday_night_work1 = 0;
 
       foreach($get_total_time as $total_time){
 
@@ -91,21 +91,37 @@ class AdminController extends Controller
       $end_time = new DateTime(date(date('Y-m-d')." ". $total_time->ending_time));
       $start_time = new DateTime(date(date('Y-m-d')." ". $total_time->opening_time));
       $break_time = new DateTime(date(date('Y-m-d')." ". $total_time->break_time));
+      $holiday_start_time = new DateTime(date(date('Y-m-d')." ". $total_time->holiday_start_time));
+      $holiday_end_time = new DateTime(date(date('Y-m-d')." ". $total_time->holiday_end_time));
+      $holiday_break_time = new DateTime(date(date('Y-m-d')." ". $total_time->holiday_break_time));
 
-      //一日の総労働時間の合計
+      //一日の総労働時間
       $difference = $end_time->diff($start_time)->format(date('Y-m-d')." ".'%H:%I:%S');
       $string = new DateTime(date(" ".$difference));
       $difference_1 = $string->diff($break_time)->format(date('Y-m-d')." ".'%H:%I:%S');
-
-      //終業時間を秒にする
-      $end_time_seconds = $end_time->format(date('Y-m-d')." ".'H:i:s');
-      $get_end_seconds = strtotime($end_time_seconds);
-
       //UNIX_TIMEを基準に秒に直す
       $string_1 = strtotime($difference_1);
       $time_total = $string_1 - $string_2;
       $sum_time += $time_total;
       $sum_time1 += $time_total;
+
+      //休日1日の総労働時間
+      $difference_2 = $holiday_end_time->diff($holiday_start_time)->format(date('Y-m-d')." ".'%H:%I:%S');
+      $string_3 = new DateTime(date(" ".$difference_2));
+      $difference_3 = $string_3->diff($holiday_break_time)->format(date('Y-m-d')." ".'%H:%I:%S');
+      //UNIX_TIMEを基準に秒に直す
+      $string_4 = strtotime($difference_3);
+      $time_total_1 = $string_4 - $string_5;
+      $holiday_work += $time_total_1;
+      $holiday_work1 += $time_total_1;
+
+      //終業時間を秒にする
+      $end_time_seconds = $end_time->format(date('Y-m-d')." ".'H:i:s');
+      $get_end_seconds = strtotime($end_time_seconds);
+
+      //休日の終業時間を秒にする
+      $holiday_end_time_seconds = $holiday_end_time->format(date('Y-m-d')." ".'H:i:s');
+      $get_holiday_end_seconds = strtotime($holiday_end_time_seconds);
 
       //8h超えを求める//
       $eight_over_seconds = $string_1 - $over_work_hour_seconds;
@@ -119,6 +135,13 @@ class AdminController extends Controller
       if($night_over_seconds > 0){
       $night_work += $night_over_seconds;
       $night_work1 += $night_over_seconds;
+      }
+
+      // 休日の10時以降を求める//
+      $holiday_over_seconds = $get_holiday_end_seconds - $night_work_hour_seconds;
+      if($holiday_over_seconds > 0){
+      $holiday_night_work += $holiday_over_seconds;
+      $holiday_night_work1 += $holiday_over_seconds;
       }
     }
       //時間を秒にしたやつを割って戻す
@@ -154,15 +177,37 @@ class AdminController extends Controller
       //文字列として連結させて分が0だと0埋めするように記述する
       $night_work_time = sprintf("$night_work1".':'.'%02d',"$minutes_2");
 
+      //時間を秒にしたやつを割って戻す
+      $holiday_work = $holiday_work / 3600;
+      //小数点をを出す
+      $holiday_work1 = floor($holiday_work1 / 3600);
+      //出した小数点との差分を計算する(分を求めるため)
+      $dot_3 = number_format($holiday_work - $holiday_work1,2);
+      //分を60進法で戻して切り上げる
+      $minutes_3 = round($dot_3 * 60);
+      //文字列として連結させて分が0だと0埋めするように記述する
+      $holiday_work_time = sprintf("$holiday_work1".':'.'%02d',"$minutes_3");
+
+      //休日深夜時間を求める(10時以降)//
+      $holiday_night_work = $holiday_night_work / 3600;
+      //小数点をだす
+      $holiday_night_work1 = floor($holiday_night_work1 / 3600);
+      //出した小数点との差分を計算する(分を求めるため)
+      $dot_4 = number_format($holiday_night_work - $holiday_night_work1,2);
+      //分を60進法で戻して切り上げる
+      $minutes_4 = round($dot_4 * 60);
+      //文字列として連結させて分が0だと0埋めするように記述する
+      $holiday_night_work_time = sprintf("$holiday_night_work1".':'.'%02d',"$minutes_4");
+
       return view('admin.show',[
 
         'show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,
         'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time,'eight_over_time'=>$eight_over_time,
-        'night_work_time'=>$night_work_time]);
+        'night_work_time'=>$night_work_time,'holiday_work_time'=>$holiday_work_time,'holiday_night_work_time'=>$holiday_night_work_time]);
     }
     //8h越え = 実働時間 - 08:00
-    //深夜時間 = 就業時間 - 22:00
-    //実働時間 = 就業時間 - 始業時間 - 休憩時間
+    //深夜時間 = 終業時間 - 22:00
+    //実働時間 = 終業時間 - 始業時間 - 休憩時間
 
 
     public function edit($id,$year,$month){
@@ -186,8 +231,9 @@ class AdminController extends Controller
         'opening_time' => $request->input('opening_time')[$id],
         'ending_time' => $request->input('ending_time')[$id],
         'break_time' => $request->input('break_time')[$id],
-        'holiday_time' => $request->input('holiday_time')[$id],
-        'holiday_night' => $request->input('holiday_night')[$id],
+        'holiday_start_time' => $request->input('holiday_start_time')[$id],
+        'holiday_end_time' => $request->input('holiday_end_time')[$id],
+        'holiday_break_time' => $request->input('holiday_break_time')[$id],
         'holiday' => $request->input('holiday')[$id],
         'adsence' => $request->input('adsence')[$id],
         'late' => $request->input('late')[$id],

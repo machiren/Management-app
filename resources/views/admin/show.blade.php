@@ -19,7 +19,7 @@
           <tr>
             <th class='month'>{{$month->month}}月</th>
             <th colspan="3" style="text-align:center">平日</th>
-            <th colspan="2" style="text-align:center">休日</th>
+            <th colspan="3" style="text-align:center">休日</th>
             <th colspan="6" style="text-align:center">勤怠</th>
           </tr>
           <tr>
@@ -28,8 +28,9 @@
             <th>始業時刻</th>
             <th>終業時刻</th>
             <th>休憩時間</th>
-            <th>休日</th>
-            <th>休日深夜</th>
+            <th>始業時刻</th>
+            <th>終業時刻</th>
+            <th>休憩時間</th>
             <th>休暇</th>
             <th>欠勤</th>
             <th>遅刻</th>
@@ -43,8 +44,9 @@
             <td>{{$show->opening_time}}</td>
             <td>{{$show->ending_time}}</td>
             <td>{{$show->break_time}}</td>
-            <td>{{$show->holiday_time}}</td>
-            <td>{{$show->holiday_night}}</td>
+            <td>{{$show->holiday_start_time}}</td>
+            <td>{{$show->holiday_end_time}}</td>
+            <td>{{$show->holiday_break_time}}</td>
             <td>{{$show->holiday}}</td>
             <td>{{$show->adsence}}</td>
             <td>{{$show->late}}</td>
@@ -58,8 +60,9 @@
                 <td>実働合計</td>
                 <td>8h超合計</td>
                 <td>深夜合計</td>
-                <td>休日合計</td>
+                <td>実働合計</td>
                 <td>深夜合計</td>
+                <td></td>
                 <td>休暇合計</td>
                 <td>欠勤合計</td>
                 <td>遅刻合計</td>
@@ -74,7 +77,8 @@
                 <td>{{$total_work_time}}</td>
                 <td>{{$eight_over_time}}</td>
                 <td>{{$night_work_time}}</td>
-                <td></td>
+                <td>{{$holiday_work_time}}</td>
+                <td>{{$holiday_night_work_time}}</td>
                 <td></td>
                 <td>{{$total['holiday']}}</td>
                 <td>{{$total['adsence']}}</td>

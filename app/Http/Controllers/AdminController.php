@@ -41,6 +41,19 @@ class AdminController extends Controller
     public function show_list($id, $year, $month){
 
       $show_list = Management::with('user')->where('user_id', $id)->where('year', $year)->where('month_id', $month)->get();
+      foreach($show_list as $show_lists){
+
+      $get_datetime = [
+
+        'opening_time' => date('Y-m-d'.$show_lists->opening_time),
+        'ending_time' => date('Y-m-d'.$show_lists->ending_time),
+        'break_time' => date('Y-m-d'.$show_lists->break_time)];
+
+      $get_start_time = date('g:i',strtotime($get_datetime['opening_time']));
+      $get_end_time = date('g:i',strtotime($get_datetime['ending_time']));
+      $get_break_time = date('g:i',strtotime($get_datetime['break_time']));
+      }
+
       $summary = Summary::with('user')->where('user_id',$id)->where('year',$year)->where('month_id',$month)->get();
       $get_year = Management::with('user')->where('year',$year)->first();
       $get_month = Month::where('month',$month)->first();
@@ -54,10 +67,19 @@ class AdminController extends Controller
         'holiday_work' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('holiday_work'),
         'makeup_holiday' => Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->sum('makeup_holiday')];
 
-      $get_total_time = Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->select('opening_time','ending_time','break_time')->get();
+      $get_total_time = Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->get();
 
+      //総労働時間を求める
       $sum_time = 0;
       $sum_time1 = 0;
+      $fixed = date('Y-m-d'." ".'00:00:00');
+      $string_2 = strtotime($fixed);
+      //8h超を求める
+      $over_work = 0;
+      $over_work1 = 0;
+      $over_work_hour = date('Y-m-d'." ".'08:00:00');
+      $over_work_hour_seconds = strtotime($over_work_hour);
+
       foreach($get_total_time as $total_time){
 
       //時間の代入
@@ -72,11 +94,16 @@ class AdminController extends Controller
 
       //UNIX_TIMEを基準に秒に直す
       $string_1 = strtotime($difference_1);
-      $fixed = date('Y-m-d'." ".'00:00:00');
-      $string_2 = strtotime($fixed);
       $time_total = $string_1 - $string_2;
       $sum_time += $time_total;
       $sum_time1 += $time_total;
+
+      //8h超えを求める
+      $eight_over_seconds = $string_1 - $over_work_hour_seconds;
+      if($eight_over_seconds > 0){
+      $over_work += $eight_over_seconds;
+      $over_work1 += $eight_over_seconds;
+      }
     }
       //時間を秒にしたやつを割って戻す
       $sum_time = $sum_time / 3600;
@@ -89,7 +116,21 @@ class AdminController extends Controller
       //文字列として連結させて分が0だと0埋めするように記述する
       $total_work_time = sprintf("$sum_time1".':'.'%02d',"$minutes");
 
-      return view('admin.show',['show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time]);
+      //8h超を求める
+      $over_work = $over_work / 3600;
+      //小数点をだす
+      $over_work1 = floor($over_work1 / 3600);
+      //出した小数点との差分を計算する(分を求めるため)
+      $dot_1 = number_format($over_work - $over_work1,2);
+      //分を60進法で戻して切り上げる
+      $minutes_1 = round($dot_1 * 60);
+      //文字列として連結させて分が0だと0埋めするように記述する
+      $eight_over_time = sprintf("$over_work1".':'.'%02d',"$minutes_1");
+
+      return view('admin.show',[
+
+        'show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,
+        'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time,'eight_over_time'=>$eight_over_time]);
     }
     //8h越え = 実働時間 - 08:00
     //深夜時間 = 就業時間 - 22:00

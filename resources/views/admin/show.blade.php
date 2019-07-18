@@ -72,7 +72,7 @@
                 {{$month->month}}月
               </td>
                 <td>{{$total_work_time}}</td>
-                <td></td>
+                <td>{{$eight_over_time}}</td>
                 <td></td>
                 <td></td>
                 <td></td>

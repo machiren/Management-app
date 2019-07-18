@@ -57,11 +57,11 @@
                 @foreach($day as $days)
               <tr>
                 <td>{{$days->day}}</td>
-                <td><input class="form-control" type="time" step="900" name="opening_time[{{$days->day}}]" min="05:00" value="09:00"></td>
-                <td><input class="form-control" type="time" step="900" name="ending_time[{{$days->day}}]" min="05:00" value="18:00"></td>
-                <td><input class="form-control" type="time" step="900" name="break_time[{{$days->day}}]" value="01:00"></td>
-                <td><input class="form-control" type="time" step="900" name="holiday_time[{{$days->day}}]"   value="00:00"></td>
-                <td><input class="form-control" type="time" step="900" name="holiday_night[{{$days->day}}]" min="00:00" max="07:00" value="00:00"></td>
+                <td><input class="form-control" type="time" name="opening_time[{{$days->day}}]" min="05:00" value="09:00"></td>
+                <td><input class="form-control" type="time" name="ending_time[{{$days->day}}]" min="05:00" value="18:00"></td>
+                <td><input class="form-control" type="time" name="break_time[{{$days->day}}]" value="01:00"></td>
+                <td><input class="form-control" type="time" name="holiday_time[{{$days->day}}]"   value="00:00"></td>
+                <td><input class="form-control" type="time" name="holiday_night[{{$days->day}}]" min="00:00" max="07:00" value="00:00"></td>
                 <td>
                   <input type="hidden" name="holiday[{{$days->day}}]" value="0">
                     <div class="form-check">

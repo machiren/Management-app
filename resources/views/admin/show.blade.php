@@ -73,7 +73,7 @@
               </td>
                 <td>{{$total_work_time}}</td>
                 <td>{{$eight_over_time}}</td>
-                <td></td>
+                <td>{{$night_work_time}}</td>
                 <td></td>
                 <td></td>
                 <td>{{$total['holiday']}}</td>

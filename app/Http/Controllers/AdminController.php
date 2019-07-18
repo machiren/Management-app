@@ -69,16 +69,21 @@ class AdminController extends Controller
 
       $get_total_time = Management::where('user_id',$id)->where('year',$year)->where('month_id',$month)->get();
 
-      //総労働時間を求める
+      //総労働時間を求める//
       $sum_time = 0;
       $sum_time1 = 0;
       $fixed = date('Y-m-d'." ".'00:00:00');
       $string_2 = strtotime($fixed);
-      //8h超を求める
+      //8h超を求める//
       $over_work = 0;
       $over_work1 = 0;
       $over_work_hour = date('Y-m-d'." ".'08:00:00');
       $over_work_hour_seconds = strtotime($over_work_hour);
+      //10時以降を求める//
+      $night_work = 0;
+      $night_work1 = 0;
+      $night_work_hour = date('Y-m-d'." ".'22:00:00');
+      $night_work_hour_seconds = strtotime($night_work_hour);
 
       foreach($get_total_time as $total_time){
 
@@ -92,17 +97,28 @@ class AdminController extends Controller
       $string = new DateTime(date(" ".$difference));
       $difference_1 = $string->diff($break_time)->format(date('Y-m-d')." ".'%H:%I:%S');
 
+      //終業時間を秒にする
+      $end_time_seconds = $end_time->format(date('Y-m-d')." ".'H:i:s');
+      $get_end_seconds = strtotime($end_time_seconds);
+
       //UNIX_TIMEを基準に秒に直す
       $string_1 = strtotime($difference_1);
       $time_total = $string_1 - $string_2;
       $sum_time += $time_total;
       $sum_time1 += $time_total;
 
-      //8h超えを求める
+      //8h超えを求める//
       $eight_over_seconds = $string_1 - $over_work_hour_seconds;
       if($eight_over_seconds > 0){
       $over_work += $eight_over_seconds;
       $over_work1 += $eight_over_seconds;
+      }
+
+      //10時以降を求める//
+      $night_over_seconds = $get_end_seconds - $night_work_hour_seconds;
+      if($night_over_seconds > 0){
+      $night_work += $night_over_seconds;
+      $night_work1 += $night_over_seconds;
       }
     }
       //時間を秒にしたやつを割って戻す
@@ -116,7 +132,7 @@ class AdminController extends Controller
       //文字列として連結させて分が0だと0埋めするように記述する
       $total_work_time = sprintf("$sum_time1".':'.'%02d',"$minutes");
 
-      //8h超を求める
+      //8h超を求める//
       $over_work = $over_work / 3600;
       //小数点をだす
       $over_work1 = floor($over_work1 / 3600);
@@ -127,10 +143,22 @@ class AdminController extends Controller
       //文字列として連結させて分が0だと0埋めするように記述する
       $eight_over_time = sprintf("$over_work1".':'.'%02d',"$minutes_1");
 
+      //深夜時間を求める(10時以降)//
+      $night_work = $night_work / 3600;
+      //小数点をだす
+      $night_work1 = floor($night_work1 / 3600);
+      //出した小数点との差分を計算する(分を求めるため)
+      $dot_2 = number_format($night_work - $night_work1,2);
+      //分を60進法で戻して切り上げる
+      $minutes_2 = round($dot_2 * 60);
+      //文字列として連結させて分が0だと0埋めするように記述する
+      $night_work_time = sprintf("$night_work1".':'.'%02d',"$minutes_2");
+
       return view('admin.show',[
 
         'show_list'=>$show_list,'summary'=>$summary,'year'=>$get_year,'month'=>$get_month,
-        'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time,'eight_over_time'=>$eight_over_time]);
+        'user'=>$get_user,'total'=>$total,'total_work_time'=>$total_work_time,'eight_over_time'=>$eight_over_time,
+        'night_work_time'=>$night_work_time]);
     }
     //8h越え = 実働時間 - 08:00
     //深夜時間 = 就業時間 - 22:00

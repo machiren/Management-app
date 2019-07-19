@@ -20,7 +20,7 @@
                 {{$year->year}}年の月一覧
                 </li>
               @foreach($list as $month)
-              <li><a href="/managements/show/{{$auth}}/{{$year->year}}/{{$month->month->id}}" class="list-group-item list-group-item-action" name="list[]">{{$month->month->id}}月の勤務表</a></li>
+              <li><a href="/managements/show/{{$year->year}}/{{$month->month->id}}" class="list-group-item list-group-item-action" name="list[]">{{$month->month->id}}月の勤務表</a></li>
               @endforeach
             </ul>
           </div>

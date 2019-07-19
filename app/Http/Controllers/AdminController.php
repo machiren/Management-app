@@ -201,7 +201,19 @@ class AdminController extends Controller
       Management::where('id',$id)->update($update_culumn);
 
       }
-        return redirect('/managements/updated');
+
+      $summary_culumn = [
+
+        'official_start_time' => $request->input('official_start_time'),
+        'official_end_time' => $request->input('official_end_time'),
+        'official_break_time' => $request->input('official_break_time'),
+        'customer' => $request->input('customer'),
+        'project' => $request->input('project'),
+        'remarks' => $request->input('remarks')];
+
+      Summary::where('user_id',$request->input('user_id'))->update($summary_culumn);
+
+      return redirect('/managements/updated');
     }
 
     public function delete($id,$year,$month){
@@ -209,9 +221,9 @@ class AdminController extends Controller
       $get_delete_id1 = Summary::with('user')->where('user_id',$id)->where('year',$year)->where('month_id',$month)->delete();
       $get_delete_id2 = Management::with('user')->where('user_id', $id)->where('year', $year)->where('month_id', $month)->get();
 
-      foreach($get_delete_id2 as $derete)
+      foreach($get_delete_id2 as $delete)
       {
-        $derete->delete();
+        $delete->delete();
       }
 
       return redirect('managements/deleted');

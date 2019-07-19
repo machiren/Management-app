@@ -12,12 +12,12 @@
 		</div>
 	</div>
 </div>
+<form action="/admin/update" method="POST" name="update">
+	@method('PUT')
+	@csrf
 <div class="container mt-4">
 	<div class="row">
 		<div class="col">
-		<form action="/admin/update" method="POST" name="update">
-		@method('PUT')
-		@csrf
 			<table id="management" class="table table-bordered ">
 				<tr>
 					<th class='month'>{{$month->month}}月</th>
@@ -32,8 +32,8 @@
 					<th>終業時刻</th>
 					<th>休憩時間</th>
 					<th>始業時刻</th>
-					<th>終業時刻</th>
-					<th>休憩時間</th>
+          <th>終業時刻</th>
+          <th>休憩時間</th>
 					<th>休暇</th>
 					<th>欠勤</th>
 					<th>遅刻</th>
@@ -76,17 +76,70 @@
 					</td>
 				</tr>
 				<input type="hidden" name="id[{{$edit->id}}]" value="{{$edit->id}}">
+				<input type="hidden" name="user_id" value="{{$user->id}}">
 				@endforeach
 			</table>
-				<div class="container mt-4 mb-5">
-					<div class="row">
-						<div class="col-3 offset-5">
-							<button type="submit" class="btn btn-lg btn-outline-success">更新</button>
+		</div>
+	</div>
+</div>
+<div class="container mt-6 offset-4">
+	<div class="row">
+		<div class="col">
+			<div class="input-group mt-3 mb-4">
+				<div class="input-group-prepend">
+					<span class="input-group-text">始業時間</span>
+						<input type="time" class="form-control" name="official_start_time" step="900" min="05:00" required value="09:00">
+						<span class="input-group-text">終業時間</span>
+						<input type="time" class="form-control" name="official_end_time" step="900" min="05:00" required value="18:00">
+						<span class="input-group-text">休憩時間</span>
+						<input type="time" class="form-control" name="official_break_time" step="900" required value="01:00">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="offset-2 col-4">
+			<input type="text" class="form-control" name="customer" autocomplete="off" required placeholder="顧客名">
+		</div>
+		<div class="col-4">
+			<input type="text" class="form-control" name="project" autocomplete="off" required placeholder="プロジェクト名">
+		</div>
+	</div>
+</div>
+<div class="container mt-4">
+	<div class="row">
+		<div class="offset-2 col-8">
+			<textarea class="form-control" name="remarks" autocomplete="off" placeholder="備考欄"></textarea>
+		</div>
+	</div>
+</div>
+<div class="container mt-4 mb-5">
+	<div class="row">
+		<div class="col-3 offset-5">
+			<button type="button" class="btn btn-lg btn-outline-success" data-toggle="modal" data-target="#bd-example-modal-xl">更新</button>
+			<!-- Modal -->
+			<div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="bd-example-modal-xl" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="bd-example-modal-xl">本当に更新しますか？</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">更新する内容を確認した後、更新ボタンを押してください。</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">閉じる</button>
+							<button type="submit" class="btn btn-outline-success">更新</button>
+						</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>
+</div>
 @endsection
+

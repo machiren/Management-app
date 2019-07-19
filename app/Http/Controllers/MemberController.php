@@ -16,10 +16,7 @@ use App\Calendar;
 class MemberController extends Controller
 {
     public function index(){
-
-      $member = Auth::user();
-
-      return view('member.index',['member'=>$member]);
+      return view('member.index');
     }
 
     public function list(){
@@ -73,7 +70,7 @@ class MemberController extends Controller
 
       $a = $request->validate([
 
-        'month_id' => [Rule::unique('managements','month_id')->where('year',$request->year)]]);
+        'month_id' => [Rule::unique('managements','month_id')->where('year',$request->year)->where('user_id',$request->user_id)]]);
 
       Summary::create([
 
@@ -120,7 +117,7 @@ class MemberController extends Controller
     public function year_list(){
 
       $get_user = Auth::user()->id;
-      $year_list = Management::groupBy('year')->get('year');
+      $year_list = Management::groupBy('year')->where('user_id',Auth::user()->id)->get('year');
 
       return view('member.year_List', ['user'=>$get_user,'year_list'=>$year_list]);
     }
@@ -128,27 +125,27 @@ class MemberController extends Controller
     public function month_list($year){
 
       $get_auth = Auth::user()->id;
-      $get_year = Management::where('year',$year)->first();
-      $list = Management::where('year',$year)->groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
+      $get_year = Management::where('user_id',Auth::user()->id)->where('year',$year)->first();
+      $list = Management::where('user_id',Auth::user()->id)->where('year',$year)->groupBy('month_id')->orderBy('month_id','ASC')->get('month_id');
 
       return view('member.list',['auth'=>$get_auth,'year'=>$get_year,'list'=>$list]);
     }
 
-    public function show($auth,$year,$month){
+    public function show($year,$month){
 
       $get_month = Month::where('month',$month)->first();
-      $management = Management::where('year',$year)->where('month_id',$month)->whereBetween('calendar_id',[1,31])->get();
-      $summary = Summary::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->get();
+      $management = Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->whereBetween('calendar_id',[1,31])->get();
+      $summary = Summary::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->get();
       $total = [
 
-        'holiday' => Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->sum('holiday'),
-        'adsence' => Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->sum('adsence'),
-        'late' => Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->sum('late'),
-        'leave_early' => Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->sum('leave_early'),
-        'holiday_work' => Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->sum('holiday_work'),
-        'makeup_holiday' => Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->sum('makeup_holiday')];
+        'holiday' => Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->sum('holiday'),
+        'adsence' => Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->sum('adsence'),
+        'late' => Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->sum('late'),
+        'leave_early' => Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->sum('leave_early'),
+        'holiday_work' => Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->sum('holiday_work'),
+        'makeup_holiday' => Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->sum('makeup_holiday')];
 
-        $get_total_time = Management::where('user_id',$auth)->where('year',$year)->where('month_id',$month)->get();
+        $get_total_time = Management::where('user_id',Auth::user()->id)->where('year',$year)->where('month_id',$month)->get();
 
         $sum_time = 0;                                              $over_work = 0;
         $sum_time1 = 0;                                             $over_work1 = 0;

@@ -9,7 +9,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/managements/year_list','MemberController@year_list');
 Route::get('/managements/{year}/month_list','MemberController@month_list');
-Route::get('/managements/show/{auth}/{year}/{month}','MemberController@show');
+Route::get('/managements/show/{year}/{month}','MemberController@show');
 Route::get('/managements/list','MemberController@list');
 Route::get('/managements/{id}/create','MemberController@create');
 // Route::get('/managements/confirm','MemberController@confirm');

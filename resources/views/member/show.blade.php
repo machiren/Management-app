@@ -16,14 +16,10 @@
     <div class="row">
       <table id="management" class="table table-bordered ">
         <tr>
-          <th class='none'>
-            @foreach($month as $months)
-              {{$months->month}}月
-            @endforeach
-          </th>
-          <th colspan="3" style="text-align:center">平日</th>
-          <th colspan="3" style="text-align:center">休日</th>
-          <th colspan="6" style="text-align:center">勤怠</th>
+          <th class='none'>{{$month->month}}月</th>
+          <th class="text-center" colspan="3">平日</th>
+          <th class="text-center" colspan="3">休日</th>
+          <th class="text-center" colspan="6">勤怠</th>
         </tr>
         <tr>
           <th>日付</th>
@@ -34,30 +30,38 @@
           <th>始業時刻</th>
           <th>終業時刻</th>
           <th>休憩時間</th>
-          <th>休暇</th>
-          <th>欠勤</th>
-          <th>遅刻</th>
-          <th>早退</th>
-          <th>休出</th>
-          <th>振休</th>
+          <th class="text-center">休暇</th>
+          <th class="text-center">欠勤</th>
+          <th class="text-center">遅刻</th>
+          <th class="text-center">早退</th>
+          <th class="text-center">休出</th>
+          <th class="text-center">振休</th>
         </tr>
           @foreach($management as $managements)
         <tr>
           <td>{{$managements->calendar_id}}</td>
-          <td>{{$managements->opening_time}}</td>
-          <td>{{$managements->ending_time}}</td>
-          <td>{{$managements->break_time}}</td>
-          <td>{{$managements->holiday_start_time}}</td>
-          <td>{{$managements->holiday_end_time}}</td>
-          <td>{{$managements->holiday_break_time}}</td>
-          <td>{{$managements->holiday}}</td>
-          <td>{{$managements->adsence}}</td>
-          <td>{{$managements->late}}</td>
-          <td>{{$managements->leave_early}}</td>
-          <td>{{$managements->holiday_work}}</td>
-          <td>{{$managements->makeup_holiday}}</td>
+          <td class="text-center">{{rtrim(rtrim($managements->opening_time,00),":")}}</td>
+          <td class="text-center">{{rtrim(rtrim($managements->ending_time,00),":")}}</td>
+          <td class="text-center">{{rtrim(rtrim($managements->break_time,00),":")}}</td>
+          <td class="text-center">{{rtrim(rtrim($managements->holiday_start_time,00),":")}}</td>
+          <td class="text-center">{{rtrim(rtrim($managements->holiday_end_time,00),":")}}</td>
+          <td class="text-center">{{rtrim(rtrim($managements->holiday_break_time,00),":")}}</td>
+          <td class="text-center">{{$managements->holiday}}</td>
+          <td class="text-center">{{$managements->adsence}}</td>
+          <td class="text-center">{{$managements->late}}</td>
+          <td class="text-center">{{$managements->leave_early}}</td>
+          <td class="text-center">{{$managements->holiday_work}}</td>
+          <td class="text-center">{{$managements->makeup_holiday}}</td>
         </tr>
-          @endforeach
+        @endforeach
+      </table>
+      <table class="table table-bordered mt-4 mb-4">
+        <tr>
+          <th>{{$month->month}}月</th>
+          <th class="text-center" colspan="3">平日</th>
+          <th class="text-center" colspan="2">休日</th>
+          <th class="text-center" colspan="6">勤怠</th>
+        </tr>
         <tr>
           <td>計算</td>
           <td>実働合計</td>
@@ -65,7 +69,6 @@
           <td>深夜合計</td>
           <td>休日合計</td>
           <td>深夜合計</td>
-          <td></td>
           <td>休暇合計</td>
           <td>欠勤合計</td>
           <td>遅刻合計</td>
@@ -74,23 +77,18 @@
           <td>振休合計</td>
         </tr>
         <tr>
-        <td>
-          @foreach($month as $months)
-          {{$months->month}}月
-          @endforeach
-        </td>
-        <td>{{$total_work_time}}</td>
-        <td>{{$eight_over_time}}</td>
-        <td>{{$night_work_time}}</td>
-        <td>{{$holiday_work_time}}</td>
-        <td>{{$holiday_night_work_time}}</td>
-          <td></td>
-          <td>{{$total['holiday']}}</td>
-          <td>{{$total['adsence']}}</td>
-          <td>{{$total['late']}}</td>
-          <td>{{$total['leave_early']}}</td>
-          <td>{{$total['holiday_work']}}</td>
-          <td>{{$total['makeup_holiday']}}</td>
+          <td>合計</td>
+          <td class="text-center">{{$total_work_time}}</td>
+          <td class="text-center">{{$eight_over_time}}</td>
+          <td class="text-center">{{$night_work_time}}</td>
+          <td class="text-center">{{$holiday_work_time}}</td>
+          <td class="text-center">{{$holiday_night_work_time}}</td>
+          <td class="text-center">{{$total['holiday']}}</td>
+          <td class="text-center">{{$total['adsence']}}</td>
+          <td class="text-center">{{$total['late']}}</td>
+          <td class="text-center">{{$total['leave_early']}}</td>
+          <td class="text-center">{{$total['holiday_work']}}</td>
+          <td class="text-center">{{$total['makeup_holiday']}}</td>
         </tr>
       </table>
       </div>
@@ -103,11 +101,11 @@
               <div class="input-group-prepend">
                 @foreach($summary as $summaries)
                 <span class="input-group-text">始業時間</span>
-                <div class="form-control">{{$summaries->official_start_time}}</div>
+                <div class="form-control">{{rtrim(rtrim($summaries->official_start_time,00),":")}}</div>
                 <span class="input-group-text">終業時間</span>
-                <div class="form-control">{{$summaries->official_end_time}}</div>
+                <div class="form-control">{{rtrim(rtrim($summaries->official_end_time,00),":")}}</div>
                 <span class="input-group-text">休憩時間</span>
-                <div class="form-control">{{$summaries->official_break_time}}</div>
+                <div class="form-control">{{rtrim(rtrim($summaries->official_break_time,00),":")}}</div>
               </div>
             </div>
           </div>

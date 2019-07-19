@@ -31,76 +31,71 @@
             <th>始業時刻</th>
             <th>終業時刻</th>
             <th>休憩時間</th>
-            <th>休暇</th>
-            <th>欠勤</th>
-            <th>遅刻</th>
-            <th>早退</th>
-            <th>休出</th>
-            <th>振休</th>
+            <th class="text-center">休暇</th>
+            <th class="text-center">欠勤</th>
+            <th class="text-center">遅刻</th>
+            <th class="text-center">早退</th>
+            <th class="text-center">休出</th>
+            <th class="text-center">振休</th>
           </tr>
             @foreach($show_list as $show)
           <tr>
             <td>{{$show->calendar_id}}</td>
-            <td>{{$show->opening_time}}</td>
-            <td>{{$show->ending_time}}</td>
-            <td>{{$show->break_time}}</td>
-            <td>{{$show->holiday_start_time}}</td>
-            <td>{{$show->holiday_end_time}}</td>
-            <td>{{$show->holiday_break_time}}</td>
-            <td>{{$show->holiday}}</td>
-            <td>{{$show->adsence}}</td>
-            <td>{{$show->late}}</td>
-            <td>{{$show->leave_early}}</td>
-            <td>{{$show->holiday_work}}</td>
-            <td>{{$show->makeup_holiday}}</td>
+            <td class="text-center">{{rtrim(rtrim($show->opening_time,00),":")}}</td>
+            <td class="text-center">{{rtrim(rtrim($show->ending_time,00),":")}}</td>
+            <td class="text-center">{{rtrim(rtrim($show->break_time,00),":")}}</td>
+            <td class="text-center">{{rtrim(rtrim($show->holiday_start_time,00),":")}}</td>
+            <td class="text-center">{{rtrim(rtrim($show->holiday_end_time,00),":")}}</td>
+            <td class="text-center">{{rtrim(rtrim($show->holiday_break_time,00),":")}}</td>
+            <td class="text-center">{{$show->holiday}}</td>
+            <td class="text-center">{{$show->adsence}}</td>
+            <td class="text-center">{{$show->late}}</td>
+            <td class="text-center">{{$show->leave_early}}</td>
+            <td class="text-center">{{$show->holiday_work}}</td>
+            <td class="text-center">{{$show->makeup_holiday}}</td>
           </tr>
             @endforeach
-            <tr>
-                <td>計算</td>
-                <td>実働合計</td>
-                <td>8h超合計</td>
-                <td>深夜合計</td>
-                <td>実働合計</td>
-                <td>深夜合計</td>
-                <td></td>
-                <td>休暇合計</td>
-                <td>欠勤合計</td>
-                <td>遅刻合計</td>
-                <td>早退合計</td>
-                <td>休出合計</td>
-                <td>振休合計</td>
-              </tr>
-              <tr>
-              <td>
-                {{$month->month}}月
-              </td>
-                <td>{{$total_work_time}}</td>
-                <td>{{$eight_over_time}}</td>
-                <td>{{$night_work_time}}</td>
-                <td>{{$holiday_work_time}}</td>
-                <td>{{$holiday_night_work_time}}</td>
-                <td></td>
-                <td>{{$total['holiday']}}</td>
-                <td>{{$total['adsence']}}</td>
-                <td>{{$total['late']}}</td>
-                <td>{{$total['leave_early']}}</td>
-                <td>{{$total['holiday_work']}}</td>
-                <td>{{$total['makeup_holiday']}}</td>
-              </tr>
+        </table>
+        <table class="table table-bordered mt-4 mb-4"><tr>
+          <th>{{$month->month}}月</th>
+            <th class="text-center" colspan="3">平日</th>
+            <th class="text-center" colspan="2">休日</th>
+            <th class="text-center" colspan="6">勤怠</th>
+          </tr>
+          <tr>
+            <td>計算</td>
+            <td>実働合計</td>
+            <td>8h超合計</td>
+            <td>深夜合計</td>
+            <td>実働合計</td>
+            <td>深夜合計</td>
+            <td>休暇合計</td>
+            <td>欠勤合計</td>
+            <td>遅刻合計</td>
+            <td>早退合計</td>
+            <td>休出合計</td>
+            <td>振休合計</td>
+          </tr>
+          <tr>
+            <td>{{$month->month}}月</td>
+            <td class="text-center">{{$total_work_time}}</td>
+            <td class="text-center">{{$eight_over_time}}</td>
+            <td class="text-center">{{$night_work_time}}</td>
+            <td class="text-center">{{$holiday_work_time}}</td>
+            <td class="text-center">{{$holiday_night_work_time}}</td>
+            <td class="text-center">{{$total['holiday']}}</td>
+            <td class="text-center">{{$total['adsence']}}</td>
+            <td class="text-center">{{$total['late']}}</td>
+            <td class="text-center">{{$total['leave_early']}}</td>
+            <td class="text-center">{{$total['holiday_work']}}</td>
+            <td class="text-center">{{$total['makeup_holiday']}}</td>
+          </tr>
         </table>
       </div>
     </div>
   </div>
     <div class="container mt-2 offset-3">
       <div class="row">
-        <div class="col-3">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">給与計算用欄</span>
-              <div class="form-control">後程</div>
-            </div>
-          </div>
-        </div>
         <div class="col-3 offset-1">
           <div class="input-group">
             <div class="input-group-prepend">

@@ -136,5 +136,12 @@
     </div>
   </div>
 </div>
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-1.5 offset-5">
+      <a href="/admin/{{Auth::user()->id}}/{{$year}}/{{$month->month}}/edit" class="btn btn-lg btn-outline-success">更新画面</a>
+    </div>
+  </div>
+</div>
 @endforeach
 @endsection

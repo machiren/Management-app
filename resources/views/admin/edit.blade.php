@@ -32,8 +32,8 @@
 					<th>終業時刻</th>
 					<th>休憩時間</th>
 					<th>始業時刻</th>
-          <th>終業時刻</th>
-          <th>休憩時間</th>
+                    <th>終業時刻</th>
+					<th>休憩時間</th>
 					<th>休暇</th>
 					<th>欠勤</th>
 					<th>遅刻</th>
@@ -119,7 +119,6 @@
 	<div class="row">
 		<div class="col-3 offset-5">
 			<button type="button" class="btn btn-lg btn-outline-success" data-toggle="modal" data-target="#bd-example-modal-xl">更新</button>
-			<!-- Modal -->
 			<div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="bd-example-modal-xl" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">

@@ -236,8 +236,8 @@ class MemberController extends Controller
 
       return view('member.show',[
 
-      'month'=>$get_month,'management'=>$management,'summary'=>$summary,'total'=>$total,
-      'total_work_time'=>$total_work_time,'eight_over_time'=>$eight_over_time,
+      'year'=>$year,'month'=>$get_month,'management'=>$management,'summary'=>$summary,
+      'total'=>$total,'total_work_time'=>$total_work_time,'eight_over_time'=>$eight_over_time,
       'night_work_time'=>$night_work_time,'holiday_work_time'=>$holiday_work_time,
       'holiday_night_work_time'=>$holiday_night_work_time]);
     }
